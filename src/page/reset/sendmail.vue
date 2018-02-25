@@ -7,7 +7,8 @@
       size="large"
       autofocus
       :placeholder="lang.input.email.placeholder" 
-      v-model.trim="email">
+      v-model.trim="email"
+      @on-enter="submit">
         <Icon type="ios-email" slot="prepend" :size="20"></Icon>
       </Input>
     </FormItem>
@@ -21,13 +22,17 @@
 import { FormItem, Icon, Input, Button } from "iview";
 import account from "@/components/account/account";
 import lang from "../../locale/";
+// import {
+//   check
+// } from "../../plugins/account/register";
+import { sendMail } from "../../plugins/account/sendmail";
 export default {
   data() {
     return {
       loading: false,
-      loadtext: "loading ...",
+      loadtext: "Loading ...",
       Lang: window.localStorage.getItem("lang") || this.$Lang,
-      email: null,
+      email: null
     };
   },
   computed: {
@@ -37,7 +42,15 @@ export default {
   },
   methods: {
     async submit() {
-
+      this.loading = true;
+      await sendMail(this.email).then(res => {
+        this.loading = false;
+        if (res.data.code) {
+          this.$Tip(res.data.code, this.Lang);
+        } else {
+          this.$Tip(501, this.Lang);
+        } 
+      });
     },
     switchLang(lang) {
       this.loading = true;

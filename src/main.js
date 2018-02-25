@@ -9,14 +9,16 @@ import { Message } from "iview";
 Vue.use(VueRouter);
 
 Vue.prototype.$Message = Message;
-Vue.prototype.$codeMsg = (code, lang) => error(code)['msg'][lang]; 
-Vue.prototype.$Error = (code, lang) => {
-  Message.error(error(code)['msg'][lang]);
+Vue.prototype.$codeMsg = (code, lang = 'en') => error(code)['msg'][lang]; 
+
+Vue.prototype.$Tip = (code, lang = 'en') => {
+  if (code >= 200 && code < 300) {
+    Message.success(success(code)['msg'][lang]);
+  }else if (code >= 300) {
+    Message.error(error(code)['msg'][lang]);
+  }
 }
 
-Vue.prototype.$Success = (code, lang) => {
-  Message.success(success(code)['msg'][lang]);
-}
 Vue.prototype.$Message.config({
   top: 80,
   duration: 3

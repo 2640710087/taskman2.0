@@ -92,7 +92,7 @@ const error = {
   "313": {
     type: "error",
     msg: {
-      "zh-CN": "不好意思，找不到这个邮箱",
+      "zh-CN": "对不起，找不到这个邮箱",
       en: "sorry,Can't find email."
     },
     description: "参数不存在"

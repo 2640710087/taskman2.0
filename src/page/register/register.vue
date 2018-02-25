@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       loading: false,
-      loadtext: "loading ...",
+      loadtext: "Loading ...",
       Lang: window.localStorage.getItem("lang") || this.$Lang,
       username: "",
       email: "",
@@ -83,13 +83,11 @@ export default {
   },
   methods: {
     submit() {
-      let result;
       let time = 0;
       let timer = setInterval(() => {
         time++;
       }, 10);
       this.loading = true;
-
       if (this.registerStatus) {
         register({
           username: this.username,
@@ -99,18 +97,21 @@ export default {
           clearInterval(timer);
           setTimeout(() => {
             this.loading = false;
-            if (res.data.code === 201) {
-              this.$Success(res.data.code, this.Lang);
-              setTimeout(() => {
-                this.loading = true;
+            if (res.data.code) {
+              this.$Tip(res.data.code, this.Lang);
+              if (res.data.code === 201) {
                 setTimeout(() => {
-                  this.loading = false;
-                  this.$router.push("login");
-                }, 2000);
-              }, 1000);
-            } else this.$Error(res.data.code, this.Lang);
+                  this.loading = true;
+                  setTimeout(() => {
+                    this.loading = false;
+                    this.$router.push("login");
+                  }, 2000);
+                }, 1000);
+              }
+            } else {
+              this.$Tip(501, this.Lang);
+            }
           }, 1000 - time * 10);
-          result = res;
         });
       } else {
         clearInterval(timer);
@@ -119,7 +120,7 @@ export default {
           ["username", "password", "email", "confirm"].forEach(v => {
             this.blur(v);
           });
-          this.$Error(324, this.Lang);
+          this.$Tip(324, this.Lang);
         }, 1000 - time * 10);
       }
     },

@@ -12,13 +12,11 @@ export const checkEU = parameter =>
   });
 
 //发送邮件
-export const sendMail = email =>
+export const sendMail = data =>
   request({
     url: "sendmail",
     data: {
-      data: {
-        email
-      }
+      data
     }
   });
 

@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       loading: false,
-      loadtext: "loading ...",
+      loadtext: "Loading ...",
       Lang: window.localStorage.getItem("lang") || this.$Lang,
       username: "",
       password: "",
@@ -66,29 +66,27 @@ export default {
         if (time < 1000) {
           setTimeout(() => {
             this.loading = false;
-            if (res.error) this.$Error(res.error, this.Lang);
+            if (res.error) this.$Tip(res.error, this.Lang);
             else {
-              this.loginResponse(res.data.code, this);
+              this.loginResponse(res.data.code);
             }
           }, 1000 - time * 4);
         } else {
           this.loading = false;
-          this.loginResponse(res.data.code, this);
+          this.loginResponse(res.data.code);
         }
       });
     },
     loginResponse(code) {
-      if (code < 300) {
-        this.$Success(code, this.Lang);
-        setTimeout(() => {
-          this.loading = true;
-        }, 1000);
-        setTimeout(() => {
-          this.loading = false;
-          this.$router.push("/");
-        }, 3000);
-      } else {
-        this.$Error(code, this.Lang);
+      this.$Tip(code, this.Lang);
+      if (code >= 200 && code < 300) {
+          setTimeout(() => {
+            this.loading = true;
+          }, 1000);
+          setTimeout(() => {
+            this.loading = false;
+            this.$router.push("/");
+          }, 3000);
       }
     },
     //切换语言

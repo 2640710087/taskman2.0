@@ -5,18 +5,18 @@
 
       <Row type="flex" justify="center" class="title" v-if="title">
         <Col span="24">
-        <h3>{{ title }}</h3>
+        <h3 v-html="title"></h3>
         </Col>
       </Row>
 
       <Row type="flex" justify="center">
         <Col :xs="22" :sm="10" :md="8" :lg="6">
-        <Form>
+        <Form @submit.native.prevent>
           <slot></slot>
         </Form>
         </Col>
       </Row>
-      <Row type="flex" justify="center">
+      <Row type="flex" justify="center" v-if="langSwitch">
         <Col :xs="22" :sm="10" :md="8" :lg="6" class="lang">
         <span>
           <span class="chinese" @click="switchLang('zh-CN')">中文</span> |
@@ -34,8 +34,7 @@ import { Form, Col, Row } from "iview";
 import Loading from "../loading/loading";
 export default {
   data() {
-    return {
-    };
+    return {};
   },
   components: {
     Col,
@@ -44,6 +43,12 @@ export default {
     Loading
   },
   props: {
+    langSwitch: {
+      type: Boolean,
+      default() {
+        return true;
+      }
+    },
     title: {
       type: String,
       default() {
@@ -59,7 +64,7 @@ export default {
     loadtext: {
       type: String,
       default() {
-        return 'loading ...';
+        return "loading ...";
       }
     }
   },

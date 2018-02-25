@@ -4,7 +4,8 @@ const login = r => require.ensure([], () => r(require('../page/login/login')), '
 const register = r => require.ensure([], () => r(require('../page/register/register')), 'register');
 const resetPassword = r => require.ensure([], () => r(require('../page/reset/resetPassword')), 'resetPassword');
 const sendmail = r => require.ensure([], () => r(require('../page/reset/sendmail')), 'sendmail');
-
+const notfound = r => require.ensure([], () => r(require('../page/notFound/notfound')), 'notFound');
+import { checkLink as checklink } from "../plugins/account/resetPassword";
 export default [
   {
     path: '/',
@@ -29,8 +30,42 @@ export default [
   },
   {
     //验证key，然后重置密码，否则跳转
-    path: '/reset_password',
+    path: '/reset_password/:random',
     name: 'reset_password',
-    component: resetPassword
+    component: resetPassword,
+    meta: { requiresAuth: true },
+    beforeEnter: async (to, from, next) => {
+      let data;
+      await checklink(to.params.random).then(res => {
+        data = res.data;
+      });
+      if (data.code === 212) {
+        next();
+      } else {
+        if(data.code === 412)
+        next("/link_failed/" + to.params.random);
+        if (data.code === 313)
+        next("/notfound")
+      }
+    }
+  },
+  {
+    path: '/link_failed/:random',
+    name: 'link_failed',
+    component: notfound,
+    beforeEnter: async (to, from, next) => {
+      let data;
+      let random_Regex = /[a-z0-9]{128}/;
+      if (random_Regex.test(to.params.random)) {
+        next();
+      } else {
+        next('notfound');
+      }
+    }
+  },
+  {
+    path: '/*',
+    name: 'notfound',
+    component: notfound
   }
 ]

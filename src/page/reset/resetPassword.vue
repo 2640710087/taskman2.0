@@ -2,23 +2,25 @@
   <account :title="lang.title" :loading="loading" :loadtext="loadtext" @switchLang="switchLang">
     <FormItem>
       <Input 
-      type="text" 
+      type="password" 
       clearable 
       size="large"
       autofocus
-      :placeholder="lang.input.password.placeholder" 
-      v-model.trim="password">
+      :placeholder="lang.input.password.placeholder"
+      v-model.trim="password"
+      @on-enter="submit">
         <Icon type="ios-locked-outline" slot="prepend" :size="18"></Icon>
       </Input>
     </FormItem>
     <FormItem>
       <Input 
-      type="text" 
+      type="password" 
       clearable 
       size="large"
       autofocus
-      :placeholder="lang.input.confirm.placeholder" 
-      v-model.trim="confirm">
+      :placeholder="lang.input.confirm.placeholder"
+      v-model.trim="confirm"
+      @on-enter="submit">
         <Icon type="ios-locked" slot="prepend" :size="18"></Icon>
       </Input>
     </FormItem>
@@ -32,15 +34,15 @@
 import { FormItem, Icon, Input, Button } from "iview";
 import account from "@/components/account/account";
 import lang from "../../locale/";
-
+import { checkLink, resetPassword } from "../../plugins/account/resetPassword";
 export default {
   data() {
     return {
       loading: false,
-      loadtext: "loading ...",
+      loadtext: "Loading ...",
       Lang: window.localStorage.getItem("lang") || this.$Lang,
-      password: null,
-      confirm: null
+      password: "",
+      confirm: ""
     };
   },
   computed: {
@@ -49,7 +51,34 @@ export default {
     }
   },
   methods: {
-    async submit() {},
+    async submit() {
+      this.loading = true;
+      resetPassword({
+        random: this.$route.params.random,
+        password: this.password,
+        confirm: this.confirm
+      }).then(res => {
+        this.loading = false;
+        
+        if (res.data.code === 204) {
+          this.Response(res.data.code);
+        }else {
+          this.$Tip(res.data.code, this.Lang);
+        }
+      });
+    },
+    Response(code) {
+      this.$Tip(code, this.Lang);
+      if (code >= 200 && code < 300) {
+        setTimeout(() => {
+          this.loading = true;
+        }, 1000);
+        setTimeout(() => {
+          this.loading = false;
+          this.$router.push("/login");
+        }, 3000);
+      }
+    },
     switchLang(lang) {
       this.loading = true;
       this.loadtext = "Setting Language";
