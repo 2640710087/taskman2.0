@@ -150,8 +150,8 @@ const error = {
   "501": {
     type: "insert error",
     msg: {
-      "zh-CN": "服务器有点小问题，请稍等！",
-      en: "The server has a little problem, please wait a moment!"
+      "zh-CN": "服务器有点小问题，请稍后再试！",
+      en: "There is a little problem on the server. Please try again later!"
     },
     description: "服务器错误(注册、登录失败 数据库异常)"
   },

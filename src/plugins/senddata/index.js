@@ -1,4 +1,4 @@
-import request from "../../config/axios";
+import { request } from "../../config/axios";
 
 // 确认用户和邮箱是否存在
 export const checkEU = parameter =>
@@ -74,12 +74,12 @@ export const delTask = data =>
     }
   });
 
-// API: 
-// checkEU 
-// sendMail 
-// login 
-// register 
-// reset 
-// checkLink 
-// addTask 
+// API:
+// checkEU
+// sendMail
+// login
+// register
+// reset
+// checkLink
+// addTask
 // delTask

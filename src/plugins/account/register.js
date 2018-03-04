@@ -11,7 +11,7 @@ export const blur = async (type, data) => {
   ) {
     let response;
     await checkEU(data).then(res => {
-      response = res.data;
+      response = res;
     });
     return response;
   }

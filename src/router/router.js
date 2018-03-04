@@ -1,10 +1,11 @@
-import task from '../page/task/task';
+// import task from '../page/task/task';
 
 const login = r => require.ensure([], () => r(require('../page/login/login')), 'login');
 const register = r => require.ensure([], () => r(require('../page/register/register')), 'register');
 const resetPassword = r => require.ensure([], () => r(require('../page/reset/resetPassword')), 'resetPassword');
 const sendmail = r => require.ensure([], () => r(require('../page/reset/sendmail')), 'sendmail');
 const notfound = r => require.ensure([], () => r(require('../page/notFound/notfound')), 'notFound');
+const task = r => require.ensure([], () => r(require('../page/task/task')), 'task');
 import { checkLink as checklink } from "../plugins/account/resetPassword";
 export default [
   {
@@ -35,18 +36,14 @@ export default [
     component: resetPassword,
     meta: { requiresAuth: true },
     beforeEnter: async (to, from, next) => {
-      let data;
       await checklink(to.params.random).then(res => {
-        data = res.data;
+        if (res.code === 212) {
+          next();
+        } else {
+          if(res.code === 412) next("/link_failed/" + to.params.random);
+          else if (res.code === 313) next("/notfound")
+        }
       });
-      if (data.code === 212) {
-        next();
-      } else {
-        if(data.code === 412)
-        next("/link_failed/" + to.params.random);
-        if (data.code === 313)
-        next("/notfound")
-      }
     }
   },
   {

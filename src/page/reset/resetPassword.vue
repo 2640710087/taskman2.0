@@ -8,7 +8,8 @@
       autofocus
       :placeholder="lang.input.password.placeholder"
       v-model.trim="password"
-      @on-enter="submit">
+      @on-enter="submit"
+      :maxlength="24">
         <Icon type="ios-locked-outline" slot="prepend" :size="18"></Icon>
       </Input>
     </FormItem>
@@ -20,7 +21,8 @@
       autofocus
       :placeholder="lang.input.confirm.placeholder"
       v-model.trim="confirm"
-      @on-enter="submit">
+      @on-enter="submit"
+      :maxlength="24">
         <Icon type="ios-locked" slot="prepend" :size="18"></Icon>
       </Input>
     </FormItem>
@@ -60,10 +62,10 @@ export default {
       }).then(res => {
         this.loading = false;
         
-        if (res.data.code === 204) {
-          this.Response(res.data.code);
+        if (res.code === 204) {
+          this.Response(res.code);
         }else {
-          this.$Tip(res.data.code, this.Lang);
+          this.$Tip(res.code, this.Lang);
         }
       });
     },

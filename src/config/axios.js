@@ -13,12 +13,16 @@ const http = axios.create({
   xsrfCookieName: 'XSRF-TOKEN', 
 })
 
-const request = param => {
+http.interceptors.response.use( response => {
+  return response.data;
+}, error => {
+  return Promise.reject(error);
+})
+
+export const request = async param => {
   if (API[param.url] === undefined) return;
   return http({
     url: API[param.url],
-    data: qs.stringify(param.data)
+    data: qs.stringify(param.data),
   })
 }
-
-export default request;

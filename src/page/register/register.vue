@@ -3,7 +3,9 @@
     <FormItem>
       <Input type="text" clearable size="large" :placeholder="lang.input.username.placeholder" v-model.trim="username"
         @on-blur="blur('username')"
-        @on-focus="focus('username')">
+        @on-focus="focus('username')"
+        :maxlength="20"
+        @on-enter="submit()">
       <Icon type="ios-person" slot="prepend" :size="20"></Icon>
       </Input>
       <tip :Lang="Lang" :code="error.username" ></tip>
@@ -11,7 +13,8 @@
     <FormItem>
       <Input type="text" clearable size="large" :placeholder="lang.input.email.placeholder" v-model="email" 
         @on-blur="blur('email')"
-        @on-focus="focus('email')">
+        @on-focus="focus('email')"
+        @on-enter="submit()">
       <Icon type="ios-email" slot="prepend" :size="20"></Icon>
       </Input>
       <tip :Lang="Lang" :code="error.email" ></tip>
@@ -20,7 +23,9 @@
       <Input type="password" clearable size="large" :placeholder="lang.input.password.placeholder" v-model.trim="password"
         @on-focus="focus('password')"
         @on-blur="blur('password')"
-        @on-change="inputPassword()">
+        @on-change="inputPassword()"
+        :maxlength="24"
+        @on-enter="submit()">
       <Icon type="ios-locked-outline" slot="prepend" :size="20"></Icon>
       </Input>
       <tip :Lang="Lang" :code="error.password" ></tip>
@@ -28,7 +33,9 @@
     <FormItem>
       <Input type="password" clearable size="large" :placeholder="lang.input.confirm.placeholder" v-model="confirm"
         @on-focus="focus('confirm')"
-        @on-blur="blur('confirm')">
+        @on-blur="blur('confirm')"
+        :maxlength="24"
+        @on-enter="submit()">
       <Icon type="ios-locked" slot="prepend" :size="20"></Icon>
       </Input>
       <tip :Lang="Lang" :code="error.confirm" ></tip>
@@ -82,7 +89,7 @@ export default {
     }
   },
   methods: {
-    submit() {
+    submit(e) {
       let time = 0;
       let timer = setInterval(() => {
         time++;
@@ -97,9 +104,9 @@ export default {
           clearInterval(timer);
           setTimeout(() => {
             this.loading = false;
-            if (res.data.code) {
-              this.$Tip(res.data.code, this.Lang);
-              if (res.data.code === 201) {
+            if (res.code) {
+              this.$Tip(res.code, this.Lang);
+              if (res.code === 201) {
                 setTimeout(() => {
                   this.loading = true;
                   setTimeout(() => {
@@ -153,25 +160,6 @@ export default {
         if (this.password !== this.confirm) this.error.confirm = 321;
         else this.error.confirm = 200;
       }
-      // if (this[type] && (type === "username" || type === "email")) {
-      //   if (check(type, this[type])) {
-      //     blur(type, this[type]).then(res => {
-      //       this.error[type] = res.code;
-      //     });
-      //   } else {
-      //     if (type === "username") this.error[type] = 302;
-      //     else if (type === "email") this.error[type] = 304;
-      //   }
-      // } else if (type === "password" || type === "confirm") {
-      //   if (type === "password") {
-      //     if (!check(type, this[type])) this.error[type] = 303;
-      //     else this.error[type] = 200;
-      //   } else if (type === "confirm") {
-      //     if (this.password && !this.confirm) this.error.confirm = 320;
-      //     else if (this.password !== this.confirm) this.error.confirm = 321;
-      //     else this.error[type] = 200;
-      //   }
-      // }
     },
     inputPassword() {
       if (this.error.confirm > 300) {

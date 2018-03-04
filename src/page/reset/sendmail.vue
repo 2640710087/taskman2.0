@@ -22,9 +22,6 @@
 import { FormItem, Icon, Input, Button } from "iview";
 import account from "@/components/account/account";
 import lang from "../../locale/";
-// import {
-//   check
-// } from "../../plugins/account/register";
 import { sendMail } from "../../plugins/account/sendmail";
 export default {
   data() {
@@ -45,8 +42,8 @@ export default {
       this.loading = true;
       await sendMail(this.email).then(res => {
         this.loading = false;
-        if (res.data.code) {
-          this.$Tip(res.data.code, this.Lang);
+        if (res.code) {
+          this.$Tip(res.code, this.Lang);
         } else {
           this.$Tip(501, this.Lang);
         } 
