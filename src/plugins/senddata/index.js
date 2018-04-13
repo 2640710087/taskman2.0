@@ -74,6 +74,14 @@ export const delTask = data =>
     }
   });
 
+export const query = (username, token) =>
+  request({
+    url: "show",
+    data: {
+      username,
+      token
+    }
+  });
 // API:
 // checkEU
 // sendMail

@@ -28,7 +28,7 @@ import { FormItem, Icon, Input, Button } from "iview";
 import account from "@/components/account/account";
 import { login } from "../../plugins/account";
 import lang from "../../locale/";
-
+import { setStorage } from "../../config/other";
 export default {
   data() {
     return {
@@ -52,6 +52,7 @@ export default {
     //提交按钮
     async submit() {
       this.loading = true;
+      this.loadtext = "Loading...";
       await login({
         username: this.username,
         password: this.password
@@ -64,9 +65,11 @@ export default {
       let code = res.code;
       this.$Tip(code, this.Lang);
       if (code > 300) {
-        this.error ++;
-      }else if (code === 202) {
+        this.error++;
+      } else if (code === 202) {
         // after one seconds loading;
+        setStorage("username", res.username);
+        setStorage("token", res.token);
         setTimeout(() => {
           this.loading = true;
         }, 1000);

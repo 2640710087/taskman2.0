@@ -39,6 +39,7 @@ export default {
   },
   methods: {
     async submit() {
+      this.loadtext = "Loading...";
       this.loading = true;
       await sendMail(this.email).then(res => {
         this.loading = false;
@@ -46,7 +47,7 @@ export default {
           this.$Tip(res.code, this.Lang);
         } else {
           this.$Tip(501, this.Lang);
-        } 
+        }
       });
     },
     switchLang(lang) {

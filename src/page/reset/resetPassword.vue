@@ -54,6 +54,7 @@ export default {
   },
   methods: {
     async submit() {
+      this.loadtext = "Loading...";
       this.loading = true;
       resetPassword({
         random: this.$route.params.random,
@@ -61,10 +62,10 @@ export default {
         confirm: this.confirm
       }).then(res => {
         this.loading = false;
-        
+
         if (res.code === 204) {
           this.Response(res.code);
-        }else {
+        } else {
           this.$Tip(res.code, this.Lang);
         }
       });

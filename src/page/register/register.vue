@@ -90,6 +90,7 @@ export default {
   },
   methods: {
     submit(e) {
+      this.loadtext = "Loading...";
       let time = 0;
       let timer = setInterval(() => {
         time++;

@@ -6,12 +6,20 @@ const resetPassword = r => require.ensure([], () => r(require('../page/reset/res
 const sendmail = r => require.ensure([], () => r(require('../page/reset/sendmail')), 'sendmail');
 const notfound = r => require.ensure([], () => r(require('../page/notFound/notfound')), 'notFound');
 const task = r => require.ensure([], () => r(require('../page/task/task')), 'task');
+const addTask = r => require.ensure([], () => r(require('@/components/task/add')), 'task');
 import { checkLink as checklink } from "../plugins/account/resetPassword";
 export default [
   {
     path: '/',
     name: 'index',
-    component: task
+    component: task,
+    children: [
+      {
+        path: '/add',
+        component: addTask,
+        name: addTask
+      }
+    ]
   },
   {
     path: '/login',

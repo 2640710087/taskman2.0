@@ -8,7 +8,8 @@ let API = {
   mailoverdue: "mailoverdue.php",
   reset: "resetpass.php",
   add: "add.php",
-  del: "del.php"
+  del: "del.php",
+  show: "show.php"
 };
 
 const checkRule = {
