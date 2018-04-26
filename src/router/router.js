@@ -1,46 +1,55 @@
 // import task from '../page/task/task';
 
-const login = r => require.ensure([], () => r(require('../page/login/login')), 'login');
-const register = r => require.ensure([], () => r(require('../page/register/register')), 'register');
-const resetPassword = r => require.ensure([], () => r(require('../page/reset/resetPassword')), 'resetPassword');
-const sendmail = r => require.ensure([], () => r(require('../page/reset/sendmail')), 'sendmail');
-const notfound = r => require.ensure([], () => r(require('../page/notFound/notfound')), 'notFound');
-const task = r => require.ensure([], () => r(require('../page/task/task')), 'task');
-const addTask = r => require.ensure([], () => r(require('@/components/task/add')), 'task');
+const login = r =>
+  require.ensure([], () => r(require("../page/login/login")), "login");
+
+const register = r =>
+  require.ensure([], () => r(require("../page/register/register")), "register");
+
+const resetPassword = r =>
+  require.ensure(
+    [],
+    () => r(require("../page/reset/resetPassword")),
+    "resetPassword"
+  );
+
+const sendmail = r =>
+  require.ensure([], () => r(require("../page/reset/sendmail")), "sendmail");
+
+const notfound = r =>
+  require.ensure([], () => r(require("../page/notFound/notfound")), "notFound");
+
+const home = r =>
+  require.ensure([], () => r(require("../page/home/home")), "home");
+
 import { checkLink as checklink } from "../plugins/account/resetPassword";
+
 export default [
   {
-    path: '/',
-    name: 'index',
-    component: task,
-    children: [
-      {
-        path: '/add',
-        component: addTask,
-        name: addTask
-      }
-    ]
+    path: "/",
+    name: "index",
+    component: home
   },
   {
-    path: '/login',
-    name: 'login',
+    path: "/login",
+    name: "login",
     component: login
   },
   {
-    path: '/register',
-    name: 'register',
+    path: "/register",
+    name: "register",
     component: register
   },
   {
     //发送邮件
-    path: '/reset',
-    name: 'sendmail',
+    path: "/reset",
+    name: "sendmail",
     component: sendmail
   },
   {
     //验证key，然后重置密码，否则跳转
-    path: '/reset_password/:random',
-    name: 'reset_password',
+    path: "/reset_password/:random",
+    name: "reset_password",
     component: resetPassword,
     meta: { requiresAuth: true },
     beforeEnter: async (to, from, next) => {
@@ -48,15 +57,15 @@ export default [
         if (res.code === 212) {
           next();
         } else {
-          if(res.code === 412) next("/link_failed/" + to.params.random);
-          else if (res.code === 313) next("/notfound")
+          if (res.code === 412) next("/link_failed/" + to.params.random);
+          else if (res.code === 313) next("/notfound");
         }
       });
     }
   },
   {
-    path: '/link_failed/:random',
-    name: 'link_failed',
+    path: "/link_failed/:random",
+    name: "link_failed",
     component: notfound,
     beforeEnter: async (to, from, next) => {
       let data;
@@ -64,13 +73,13 @@ export default [
       if (random_Regex.test(to.params.random)) {
         next();
       } else {
-        next('notfound');
+        next("notfound");
       }
     }
   },
   {
-    path: '/*',
-    name: 'notfound',
+    path: "/*",
+    name: "notfound",
     component: notfound
   }
-]
+];

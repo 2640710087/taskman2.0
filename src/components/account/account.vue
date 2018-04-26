@@ -19,8 +19,8 @@
       <Row type="flex" justify="center" v-if="langSwitch">
         <Col :xs="22" :sm="10" :md="8" :lg="6" class="lang">
         <span>
-          <span class="chinese" @click="switchLang('zh-CN')">中文</span> |
-          <span class="english" @click="switchLang('en')">English</span>
+          <span class="chinese" @click="switchLang('zh-CN')" >中文</span>
+          <span class="english" @click="switchLang('en')" >English</span>
         </span>
         </Col>
       </Row>
@@ -33,9 +33,6 @@
 import { Form, Col, Row } from "iview";
 import Loading from "../loading/loading";
 export default {
-  data() {
-    return {};
-  },
   components: {
     Col,
     Row,
@@ -46,7 +43,7 @@ export default {
     langSwitch: {
       type: Boolean,
       default() {
-        return true;
+        return false;
       }
     },
     title: {

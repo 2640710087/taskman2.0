@@ -1,5 +1,5 @@
 <template>
-  <account :title="lang.title" :loading="loading" :loadtext="loadtext" @switchLang="switchLang">
+  <account :title="lang.title" :loading="loading" :loadtext="loadtext" @switchLang="switchLang" >
     <FormItem>
       <Input type="text" clearable size="large" :placeholder="lang.input.username.placeholder" v-model.trim="username"
         @on-blur="blur('username')"

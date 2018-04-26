@@ -2,7 +2,7 @@ const success = {
   "201": {
     type: "success",
     msg: {
-      "zh-CN": "恭喜，注册成功",
+      "zh-CN": "注册成功",
       en: "Registered successfully."
     },
     description: "注册成功"
@@ -50,6 +50,6 @@ const success = {
   }
 };
 
-export default function (code) {
+export default function(code) {
   return success[code];
 }

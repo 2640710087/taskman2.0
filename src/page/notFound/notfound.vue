@@ -10,7 +10,7 @@ export default {
     text() {
       let text = `404 Not Found`;
       if (this.$route.params.random) {
-        text = `The link has failed, please <a href="/#/reset">resend the mail</a>`
+        text = `链接已经失效，请重新<a href="/#/reset">发送邮件</a>`;
       }
       return text;
     }
@@ -22,4 +22,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>
