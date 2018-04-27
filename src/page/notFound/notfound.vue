@@ -5,7 +5,7 @@
 <script>
 import account from "@/components/account/account";
 export default {
-  name: "link_failed",
+  name: "notfound",
   computed: {
     text() {
       let text = `404 Not Found`;

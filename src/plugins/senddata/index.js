@@ -56,24 +56,6 @@ export const checkLink = data =>
     }
   });
 
-//发送添加任务请求
-export const addTask = data =>
-  request({
-    url: "add",
-    data: {
-      data
-    }
-  });
-
-//发送删除任务请求
-export const delTask = data =>
-  request({
-    url: "del",
-    data: {
-      data
-    }
-  });
-
 export const query = (username, token) =>
   request({
     url: "show",
@@ -82,6 +64,8 @@ export const query = (username, token) =>
       token
     }
   });
+
+export const getModuleStatus = () => request({ url: "getStatus" });
 // API:
 // checkEU
 // sendMail
@@ -89,5 +73,3 @@ export const query = (username, token) =>
 // register
 // reset
 // checkLink
-// addTask
-// delTask

@@ -43,13 +43,13 @@ export default [
   {
     //发送邮件
     path: "/reset",
-    name: "sendmail",
+    name: "reset",
     component: sendmail
   },
   {
     //验证key，然后重置密码，否则跳转
-    path: "/reset_password/:random",
-    name: "reset_password",
+    path: "/resetpass/:random",
+    name: "resetpass",
     component: resetPassword,
     meta: { requiresAuth: true },
     beforeEnter: async (to, from, next) => {

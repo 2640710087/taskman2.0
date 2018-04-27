@@ -1,6 +1,5 @@
 <template>
   <div id="account">
-    <div class="bg"></div>
     <div class="form-body vague" :class="{blur: loading}">
 
       <Row type="flex" justify="center" class="title" v-if="title">
@@ -78,25 +77,27 @@ export default {
 <style lang="scss" scoped>
 $lang-color: rgba(255, 255, 255, 0.8);
 #account {
+  min-height: 370px;
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   justify-content: center;
+  background: url(../../images/bg.png) no-repeat center center fixed;
   &::before {
     clear: both;
     content: "";
     display: block;
     overflow: auto;
   }
-  .bg {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    background: url(../../images/bg.png) no-repeat center center fixed;
-    background-size: cover;
-    z-index: -9999999;
-  }
+  // .bg {
+  //   position: fixed;
+  //   height: 100%;
+  //   width: 100%;
+
+  //   background-size: cover;
+  //   z-index: -9999999;
+  // }
   .title {
     margin: 10px 0 20px 0;
     text-align: center;

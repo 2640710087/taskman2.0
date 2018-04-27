@@ -14,5 +14,11 @@ export default {
 @import "./style/common.scss";
 #app {
   height: 100%;
+  &::before {
+    clear: both;
+    content: "";
+    display: block;
+    overflow: auto;
+  }
 }
 </style>

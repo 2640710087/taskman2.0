@@ -57,6 +57,7 @@ import {
   check
 } from "../../plugins/account/register";
 export default {
+  name: "register",
   data() {
     return {
       loading: false,
