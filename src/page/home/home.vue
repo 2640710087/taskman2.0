@@ -94,11 +94,8 @@ export default {
   },
   mounted: function() {
     this._initScroll();
-    this.$refs.viewport.addEventListener("click", () => {
-      this.iscroll.on("beforeScrollStart", () => {
-        document.activeElement.blur();
-        console.log("hello world");
-      });
+    this.iscroll.on("beforeScrollStart", () => {
+      document.activeElement.blur();
     });
     function isPassive() {
       var supportsPassiveOption = false;
