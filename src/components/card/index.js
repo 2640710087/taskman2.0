@@ -1,3 +1,3 @@
-import card from "./card.vue";
-
-export default card;
+import Card from "./card.vue";
+import Cardlist from "./cardlist.vue";
+export { Card, Cardlist };

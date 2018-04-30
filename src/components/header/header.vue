@@ -66,7 +66,7 @@ $logo-hw: 32px !default;
 }
 .ix-header {
   @include font(14px, 14px);
-  background-color: #2a303c;
+  background-color: rgba(28, 36, 56, .99);
   width: 100%;
 
   height: 56px;

@@ -1,13 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import routes from "./router/router";
-import App from "./App";
 import store from "./store";
 import "iview/dist/styles/iview.css";
 import error from "./locale/code/error";
 import success from "./locale/code/success";
 import { Message } from "iview";
 import moduleslist from "./router/checkmodule";
+import App from "./App";
 // import Mock from "./plugins/mock";
 
 // vue config production tip
@@ -32,8 +32,8 @@ const router = new VueRouter({
   routes
 });
 router.beforeEach(async (to, from, next) => {
-  let moduledist;
-  console.log(store);
+  // let moduledist;
+  // console.log(store);
   // let modulenamelist = Object.keys(moduledist);
   // if (modulenamelist.includes(to.name)) {
   //   if (!moduledist[to.name]) {

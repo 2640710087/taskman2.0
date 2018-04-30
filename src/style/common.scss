@@ -1,25 +1,23 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
-  display: block;
-  height: 100%;
-  width: 100%;
-  font-size: 12px;
-  -ms-touch-action: none;
-  /* overflow: auto; */
+    display: block;
+    height: 100%;
+    width: 100%;
+    font-size: 12px; // -ms-touch-action: none;
+    /* overflow: auto; */
 }
 
 body {
-  height: 100%;
-  width: 100%;
-  display: block;
-  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC,
-    Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei,
-    sans-serif;
+    height: 100%;
+    width: 100%;
+    display: block;
+    background-color: #f4f5f5 !important;
+    font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
 }
 
 body,
@@ -52,19 +50,19 @@ input,
 select,
 figure,
 figcaption {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  font-style: normal;
-  text-decoration: none;
-  border: none;
-  font-weight: normal;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-font-smoothing: antialiased;
-  &:hover {
-    outline: none;
-  }
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-style: normal;
+    text-decoration: none;
+    border: none;
+    font-weight: normal;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    &:hover {
+        outline: none;
+    }
 }
 
 article,
@@ -78,18 +76,37 @@ main,
 menu,
 nav,
 section {
-  display: block;
+    display: block;
 }
 
 li {
-  list-style: none;
+    list-style: none;
 }
 
 .d-flex {
-  display: flex;
+    display: flex;
 }
 
 .d-flex-center {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
+}
+
+.iScrollVerticalScrollbar {
+    position: absolute;
+    z-index: 9999;
+    width: 8px;
+    bottom: 2px;
+    top: 2px;
+    right: 0px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    border-radius: 4px;
+    .iScrollIndicator {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.2);
+        width: 2px;
+        border-radius: 8px;
+    }
 }

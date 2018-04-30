@@ -69,14 +69,14 @@ export default {
   width: 100%;
 
   .ix-search-focus {
-    background: #40484e !important;
+    background: #fff !important;
     box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.2);
   }
   .ix-search {
     transition: 0.2s all;
     height: 100%;
     width: 100%;
-    background: #3f4448;
+    background: #40484e;
     border-radius: 4px;
     .ix-search-icon {
       padding: 0 8px;
@@ -95,7 +95,7 @@ export default {
       width: 100%;
       background: none;
       outline: none;
-      color: white;
+      color: #000;
       font-size: 14px;
     }
   }
