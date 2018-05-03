@@ -101,7 +101,6 @@ $card-mb: 10px !default;
     .ix-author-info {
       cursor: default;
       display: flex;
-      display: row;
       align-items: center;
       color: rgba(26, 26, 26, 0.3);
       font-size: 12px;
@@ -176,9 +175,10 @@ $card-mb: 10px !default;
             display: flex;
             justify-content: flex-start;
             .ix-article-lable-item {
+              text-align: center;
               cursor: pointer;
               padding: 2px 10px;
-              border-radius: 3px;
+              border-radius: 4px;
               margin: {
                 top: 2px;
                 right: 4px;

@@ -22,13 +22,32 @@ const notfound = r =>
 const home = r =>
   require.ensure([], () => r(require("../page/home/home")), "home");
 
+const article = r =>
+  require.ensure([], () => r(require("../page/home/article")), "article");
+
+const user = r =>
+  require.ensure([], () => r(require("../page/home/user")), "user");
+
 import { checkLink as checklink } from "../plugins/account/resetPassword";
 
 export default [
   {
     path: "/",
     name: "index",
-    component: home
+    component: home,
+    redirect: "article",
+    children: [
+      {
+        path: "article",
+        name: "article",
+        component: article
+      },
+      {
+        path: "user",
+        name: "user",
+        component: user
+      }
+    ]
   },
   {
     path: "/login",

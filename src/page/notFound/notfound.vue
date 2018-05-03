@@ -8,7 +8,7 @@ export default {
   name: "notfound",
   computed: {
     text() {
-      let text = `404 Not Found`;
+      let text = `404 页面不存在哦!`;
       if (this.$route.params.random) {
         text = `链接已经失效，请重新<a href="/#/reset">发送邮件</a>`;
       }

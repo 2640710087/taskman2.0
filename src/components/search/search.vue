@@ -1,10 +1,12 @@
 <template>
   <div id="ix-search-container">
     <div class="ix-search d-flex-center" :class="{'ix-search-focus': focus}">
-      <label for="input" class="d-flex-center">
+      <label for="input" class="ix-search-icon-container d-flex-center">
         <Icon type="ios-search-strong" size="20" class="ix-search-icon"></Icon>
+        <span v-if="!input">Search Forest</span>
       </label>
-      <input id="input" type="text" class="ix-search-input" placeholder="Search Forest" v-model="input"
+      <!-- placeholder="Search Forest" -->
+      <input id="input" type="text" class="ix-search-input"  v-model="input"
       @focus="$handleFocus"
       @key.enter="$handleEnter"
       @keydown="$handleKeydown"
@@ -77,11 +79,27 @@ export default {
     height: 100%;
     width: 100%;
     background: #40484e;
-    border-radius: 4px;
-    .ix-search-icon {
-      padding: 0 8px;
+    border-radius: 20px;
+    position: relative;
+    .ix-search-icon-container {
+      position: absolute;
+      justify-content: center;
+      width: 100%;
+      .ix-search-icon {
+        color: #666a6d;
+        padding: 0 8px;
+      }
     }
+
     .ix-search-input {
+      // position: absolute;
+      z-index: 100;
+      height: 100%;
+      width: 100%;
+      background: none;
+      outline: none;
+      color: #000;
+      font-size: 14px;
       &::-moz-placeholder {
         color: #666a6d;
       }
@@ -91,12 +109,6 @@ export default {
       &:-ms-input-placeholder {
         color: #666a6d;
       }
-      height: 100%;
-      width: 100%;
-      background: none;
-      outline: none;
-      color: #000;
-      font-size: 14px;
     }
   }
 }

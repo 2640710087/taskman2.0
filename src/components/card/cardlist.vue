@@ -19,9 +19,7 @@
 import Card from "./card.vue";
 export default {
   data() {
-    return {
-       
-    };
+    return {};
   },
   props: {
     articlelist: {
