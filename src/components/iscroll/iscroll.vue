@@ -9,9 +9,10 @@
 <script>
 import IScroll from "iscroll";
 export default {
+  computed: {},
   methods: {
-    _initScroll() {
-      this.iscroll = new IScroll(this.$refs.viewport, {
+    _initScroll(state) {
+      this.$store.state.Iscroll.iscroll = new IScroll(this.$refs.viewport, {
         scrollbars: false,
         mouseWheel: true,
         interactiveScrollbars: true,
@@ -20,14 +21,8 @@ export default {
         click: true,
         scrollbars: "custom"
       });
-    }
-  },
-  mounted: function() {
-    this._initScroll();
-    this.iscroll.on("beforeScrollStart", () => {
-      document.activeElement.blur();
-    });
-    function isPassive() {
+    },
+    isPassive() {
       var supportsPassiveOption = false;
       try {
         addEventListener(
@@ -42,18 +37,24 @@ export default {
       } catch (e) {}
       return supportsPassiveOption;
     }
+  },
+  mounted: function() {
+    this._initScroll();
     document.addEventListener(
       "touchmove",
       function(e) {
         e.preventDefault();
       },
-      isPassive()
+      this.isPassive()
         ? {
             capture: false,
             passive: false
           }
         : false
     );
+    this.$store.state.Iscroll.iscroll.on("beforeScrollStart", () => {
+      document.activeElement.blur();
+    });
   }
 };
 </script>
@@ -65,12 +66,12 @@ export default {
   width: 100%;
   height: 100%;
 
-  .ix-viewport-item {
-    // width: 100%;
-    margin: {
-      left: auto;
-      right: auto;
-    }
-  }
+  //   .ix-viewport-item {
+  //     // width: 100%;
+  //     // margin: {
+  //     //   left: auto;
+  //     //   right: auto;
+  //     // }
+  //   }
 }
 </style>

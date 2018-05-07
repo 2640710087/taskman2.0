@@ -12,7 +12,7 @@
                 </div>
             </h4>
             <div class="ix-article">
-                <a :href="location" target="_blank" class="ix-article-link">
+                
                     <h2 class="ix-article-title">
                         <div class="ix-article-title-content">
                             <a :href="location" target="_blank">
@@ -21,9 +21,11 @@
                         </div>
                     </h2>
                     <div class="ix-article-summary">
+                      <a :href="location" target="_blank" class="ix-article-link">
                         {{ summary }}
+                      </a>
                     </div>
-                </a>
+                
                 <div class="ix-article-info">
                     <div class="ix-article-lable">
                         <ul class="ix-article-lable-list" v-if="lablelist">
@@ -131,27 +133,27 @@ $card-mb: 10px !default;
       }
     }
     .ix-article {
-      .ix-article-link {
-        .ix-article-title {
-          color: #1a1a1a;
-          margin: {
-            bottom: 2px;
-          }
-          .ix-article-title-content {
-            a {
-              color: inherit;
-              font: {
-                size: 20px;
-                weight: 600;
-              }
-              &:hover {
-                color: #393f9b;
-              }
-            }
-            line-height: 1.6;
-          }
+      .ix-article-title {
+        color: #1a1a1a;
+        margin: {
+          bottom: 2px;
         }
-        .ix-article-summary {
+        .ix-article-title-content {
+          a {
+            color: inherit;
+            font: {
+              size: 20px;
+              weight: 600;
+            }
+            &:hover {
+              color: #393f9b;
+            }
+          }
+          line-height: 1.6;
+        }
+      }
+      .ix-article-summary {
+        .ix-article-link {
           &:hover {
             color: #666;
           }

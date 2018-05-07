@@ -3,10 +3,9 @@
     <div class="ix-search d-flex-center" :class="{'ix-search-focus': focus}">
       <label for="input" class="ix-search-icon-container d-flex-center">
         <Icon type="ios-search-strong" size="20" class="ix-search-icon"></Icon>
-        <span v-if="!input">Search Forest</span>
       </label>
-      <!-- placeholder="Search Forest" -->
-      <input id="input" type="text" class="ix-search-input"  v-model="input"
+      <input id="input" type="text" class="ix-search-input" placeholder="Search Forest" maxlength="38"
+      v-model="input"
       @focus="$handleFocus"
       @key.enter="$handleEnter"
       @keydown="$handleKeydown"
@@ -69,7 +68,8 @@ export default {
   height: 30px;
   line-height: 30px;
   width: 100%;
-
+  border-radius: 20px;
+  overflow: hidden;
   .ix-search-focus {
     background: #fff !important;
     box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.2);
@@ -79,21 +79,18 @@ export default {
     height: 100%;
     width: 100%;
     background: #40484e;
-    border-radius: 20px;
+
     position: relative;
     .ix-search-icon-container {
-      position: absolute;
-      justify-content: center;
-      width: 100%;
+      width: 32px;
+      margin: 0 8px;
       .ix-search-icon {
         color: #666a6d;
-        padding: 0 8px;
       }
     }
 
     .ix-search-input {
-      // position: absolute;
-      z-index: 100;
+      line-height: 30px;
       height: 100%;
       width: 100%;
       background: none;

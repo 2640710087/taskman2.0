@@ -8,15 +8,29 @@
         <search></search>
       </div>
       <div class="ix-user-menu">
-        <div class="ix-user-icon" @click="$handleAnimation">
-            <Icon type="more" size="24"></Icon>
+        <div class="ix-user-icon" @click.stop="$handleAnimation">
+            <Icon type="more" size="32"></Icon>
         </div>
         <ul class="ix-user-active-list" :style="{'opacity': menu.opacity, 'display': menu.display}">
-          <li> forest</li>
-          <li>添加文章</li>
-          <li>用户中心</li>
-          <li>退出登录</li>
+          <li style="display: flex; align-items: center;">
+            <img src="@/assets/logo.png" alt="forest" height="20" width="20" style="border-radius: 4px;">
+            <span style="display: inline-block; margin-left: 10px;">
+              <a href="/#/login">
+                sign in
+              </a>
+              <span>
+                or
+              </span>
+              <a href="/#/register">
+                Sign up
+              </a>
+
+            </span>
+          </li>
+          <li>Add article</li>
+          <li>Sign out</li>
         </ul>
+        <div class="ix-menu-mask"  v-if="menu.mask" @click="$handleAnLeave(400)"></div>
       </div>
 
     </div>
@@ -31,23 +45,32 @@ export default {
     return {
       menu: {
         opacity: 0,
-        display: "none"
+        display: "none",
+        mask: false
       }
     };
   },
   methods: {
     $handleAnimation() {
       let [display, optaicy] = [this.menu.display, this.menu.opacity];
-      let animationTime = 200;
       if (display === "none") {
-        this.menu.display = "block";
-        setTimeout(() => (this.menu.opacity = 1), animationTime);
+        this.$handleAnEnter();
       } else {
-        setTimeout(() => (this.menu.display = "none"), animationTime);
-        this.menu.opacity = 0;
+        this.$handleAnLeave(400);
       }
+    },
+    $handleAnEnter() {
+      this.menu.display = "block";
+      setTimeout(() => (this.menu.opacity = 1), 0);
+      this.menu.mask = true;
+    },
+    $handleAnLeave(animationTime) {
+      setTimeout(() => (this.menu.display = "none"), animationTime);
+      this.menu.opacity = 0;
+      this.menu.mask = false;
     }
   },
+  mounted() {},
   components: {
     search,
     Icon
@@ -90,7 +113,8 @@ $logo-hw: 32px !default;
     color: white;
   }
   .ix-container {
-    max-width: 1024px;
+    max-width: 960px;
+    min-width: 320px;
     position: relative;
     height: 40px;
     line-height: 30px;
@@ -122,11 +146,7 @@ $logo-hw: 32px !default;
     .ix-min-w {
       width: 100%;
       max-width: 600px;
-      min-width: 100px;
-      // margin: {
-      //   left: 8px;
-      //   right: 8px;
-      // }
+      min-width: 160px;
     }
 
     .ix-user-menu {
@@ -159,6 +179,18 @@ $logo-hw: 32px !default;
         display: block !important;
         opacity: 1 !important;
       }
+      .ix-menu-mask {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+        background: rgba(220, 220, 220, 0.1);
+      }
+      .ix-menu-mask-d {
+        display: block;
+      }
       .ix-user-active-list {
         // 媒体查询
         @media screen and (max-width: 480px) {
@@ -171,7 +203,8 @@ $logo-hw: 32px !default;
           color: white;
           position: fixed;
         }
-        transition: all 0.4s;
+        z-index: 101;
+        transition: opacity 0.4s;
         display: none;
         opacity: 0;
         background: white;
@@ -187,7 +220,7 @@ $logo-hw: 32px !default;
         top: 100%;
         right: -4px;
         left: auto;
-        margin-top: 12px;
+        margin-top: 4px;
         box-shadow: 0px 8px 33px 0px rgba(28, 36, 56, 0.1);
         border: 1px solid rgba(28, 36, 56, 0.1);
         &::before {
