@@ -2,11 +2,22 @@
     <div class="ix-upload">
         <div class="ix-upload-container">
             <ISC>
-                <div class="ix-upload-viewport">
-                    <div>
-                        {{ art }}
+                <div class="ix-upload-viewport-container">
+                    <div class="ix-upload-viewport">
+                        <div class="">
+                            Upload
+                        </div>
+                        <Upload
+                            multiple
+                            type="drag"
+                            name="upload"
+                            action="//107.151.172.35/uploadimg.php">
+                            <div style="padding: 20px 0">
+                                <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+                                <p>Click or drag files here to upload</p>
+                            </div>
+                        </Upload>
                     </div>
-                    <button @click="upload">send</button>
                 </div>
             </ISC>
         </div>
@@ -16,28 +27,23 @@
 <script>
 import ISC from "@@/iscroll";
 import addart from "./ajax.js";
+// import Upload from "@@/upload";
+import { Upload, Icon } from 'iview';
 export default {
   data() {
     return {
-      art: null
+      article: {
+          title: '',
+          summary: '',
+          files: null,
+      }
     };
   },
-  methods: {
-    upload() {
-      addart(
-        "virgin-forest",
-        "3f7863c4080086a9365d5bef3b4de67b",
-        "死亡退出",
-        "来自ctf.bugku.com的题目",
-        "52193123",
-        "CTF,PHP,Web"
-      ).then(res => {
-        console.log(res);
-      });
-    }
-  },
+  methods: {},
   components: {
-    ISC
+    ISC,
+    Icon,
+    Upload
   }
 };
 </script>
@@ -48,16 +54,34 @@ export default {
   height: calc(100% - 56px);
   width: 100%;
   display: flex;
-  // 水平居中
   justify-content: center;
+
   .ix-upload-container {
     width: 100%;
     position: relative;
   }
-}
-.ix-upload-viewport {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+
+  // 视口
+  .ix-upload-viewport-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .ix-upload-viewport {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  //
+  .ix-upload-file {
+    margin-top: 120px;
+    border: 1px dashed rgba(0, 0, 0, 0.2);
+    height: 200px;
+    width: 400px;
+    border-radius: 4px;
+  }
 }
 </style>

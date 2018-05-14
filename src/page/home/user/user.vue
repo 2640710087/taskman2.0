@@ -1,11 +1,13 @@
 <template>
     <div>
-
+        user.vue
     </div>
 </template>
 
 <script>
-export default {};
+    export default {
+
+    }
 </script>
 
 <style scoped>

@@ -12,7 +12,7 @@
                 </div>
             </h4>
             <div class="ix-article">
-                
+
                     <h2 class="ix-article-title">
                         <div class="ix-article-title-content">
                             <a :href="location" target="_blank">
@@ -25,7 +25,7 @@
                         {{ summary }}
                       </a>
                     </div>
-                
+
                 <div class="ix-article-info">
                     <div class="ix-article-lable">
                         <ul class="ix-article-lable-list" v-if="lablelist">
@@ -157,6 +157,7 @@ $card-mb: 10px !default;
           &:hover {
             color: #666;
           }
+          word-wrap: break-word;
           color: #1a1a1a;
           margin: {
             bottom: 4px;

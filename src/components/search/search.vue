@@ -84,6 +84,7 @@ export default {
     .ix-search-icon-container {
       width: 32px;
       margin: 0 8px;
+      justify-content: center;
       .ix-search-icon {
         color: #666a6d;
       }

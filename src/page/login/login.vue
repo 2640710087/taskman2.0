@@ -66,14 +66,16 @@ export default {
       this.$Tip(code, this.Lang);
       if (code > 300) {
         this.error++;
-      } else if (code === 202) {
+      } else if (code === 201) {
         // after one seconds loading;
-        setStorage("username", res.username);
-        setStorage("token", res.token);
+        // setStorage("username", res.username);
+        // setStorage("token", res.token);
+        this.$store.state.USER_INFO.username = res.username;
+        this.$store.state.USER_INFO.token = res.token;
         setTimeout(() => {
           this.loading = true;
         }, 1000);
-
+        console.log(this.$router);
         // after three seconds jump to home.
         setTimeout(() => {
           this.loading = false;

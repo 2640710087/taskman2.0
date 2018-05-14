@@ -18,19 +18,16 @@ import ISC from "@@/iscroll";
 import { getArtList } from "@/plugins/senddata";
 export default {
   data() {
-    return {};
-  },
-  computed: {
-    article() {
-      return this.$store.state.articleList;
-    }
+    return {
+      article: null
+    };
   },
   methods: {},
   mounted() {
     getArtList().then(res => {
-      this.$store.commit("refreshArt", res.article);
+      this.article = res.article;
       setTimeout(() => {
-        this.$store.state.Iscroll.iscroll.refresh();
+        this.$store.state.ISCROLL.iscroll.refresh();
       }, 0);
     });
   },

@@ -12,15 +12,17 @@ export default {
   computed: {},
   methods: {
     _initScroll(state) {
-      this.$store.state.Iscroll.iscroll = new IScroll(this.$refs.viewport, {
+      let iscroll = new IScroll(this.$refs.viewport, {
         scrollbars: false,
         mouseWheel: true,
         interactiveScrollbars: true,
         shrinkScrollbars: "scale",
         fadeScrollbars: true,
         click: true,
-        scrollbars: "custom"
+        scrollbars: "custom",
+        taps: true
       });
+      this.$store.state.ISCROLL.iscroll = iscroll;
     },
     isPassive() {
       var supportsPassiveOption = false;
@@ -52,7 +54,7 @@ export default {
           }
         : false
     );
-    this.$store.state.Iscroll.iscroll.on("beforeScrollStart", () => {
+    this.$store.state.ISCROLL.iscroll.on("beforeScrollStart", function() {
       document.activeElement.blur();
     });
   }

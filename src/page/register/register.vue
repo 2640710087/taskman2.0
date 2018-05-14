@@ -11,7 +11,7 @@
       <tip :Lang="Lang" :code="error.username" ></tip>
     </FormItem>
     <FormItem>
-      <Input type="text" clearable size="large" :placeholder="lang.input.email.placeholder" v-model="email" 
+      <Input type="text" clearable size="large" :placeholder="lang.input.email.placeholder" v-model="email"
         @on-blur="blur('email')"
         @on-focus="focus('email')"
         @on-enter="submit()">
@@ -42,6 +42,9 @@
     </FormItem>
     <FormItem>
       <Button type="success" long @click="submit()">{{ lang.submit }}</Button>
+    </FormItem>
+    <FormItem class="link">
+        已有FOREST ID？<a href="/#/login">现在登录?</a>
     </FormItem>
   </account>
 </template>
@@ -188,6 +191,14 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.link {
+  color: white;
+}
+a {
+  color: #2d8cf0;
+  &:hover {
+    text-decoration: underline;
+  }
+}
 </style>

@@ -4,7 +4,11 @@ const login = r =>
     require.ensure([], () => r(require("../page/login/login")), "login");
 
 const register = r =>
-    require.ensure([], () => r(require("../page/register/register")), "register");
+    require.ensure(
+        [],
+        () => r(require("../page/register/register")),
+        "register"
+    );
 
 const resetPassword = r =>
     require.ensure(
@@ -17,7 +21,11 @@ const sendmail = r =>
     require.ensure([], () => r(require("../page/reset/sendmail")), "sendmail");
 
 const notfound = r =>
-    require.ensure([], () => r(require("../page/notFound/notfound")), "notFound");
+    require.ensure(
+        [],
+        () => r(require("../page/notFound/notfound")),
+        "notFound"
+    );
 
 const home = r =>
     require.ensure([], () => r(require("../page/home/home")), "home");
@@ -26,24 +34,32 @@ const article = r =>
     require.ensure([], () => r(require("../page/home/article")), "article");
 
 const upload = r =>
-    require.ensure([], () => r(require("../page/home/upload")), "user");
+    require.ensure([], () => r(require("../page/home/upload")), "upload");
 
-import {
-    checkLink as checklink
-} from "../plugins/account/resetPassword";
+const user = r =>
+    require.ensure([], () => r(require("../page/home/user")), "user");
 
-export default [{
+import { checkLink as checklink } from "../plugins/account/resetPassword";
+
+export default [
+    {
         path: "/",
         name: "index",
         component: home,
         redirect: "article",
-        children: [{
+        children: [
+            {
                 path: "article",
                 name: "article",
                 component: article
             },
             {
-                path: "upload",
+                path: "article/:username",
+                name: "upload",
+                component: user
+            },
+            {
+                path: "article/:username/upload",
                 name: "upload",
                 component: upload
             }
@@ -78,7 +94,8 @@ export default [{
                 if (res.code === 212) {
                     next();
                 } else {
-                    if (res.code === 412) next("/link_failed/" + to.params.random);
+                    if (res.code === 412)
+                        next("/link_failed/" + to.params.random);
                     else if (res.code === 313) next("/notfound");
                 }
             });

@@ -1,55 +1,54 @@
 const success = {
-  "201": {
-    type: "success",
-    msg: {
-      "zh-CN": "注册成功",
-      en: "Registered successfully."
+    "201": {
+        type: "success",
+        msg: {
+            "zh-CN": "操作成功",
+            en: "Registered successfully."
+        },
+        description: "注册成功"
     },
-    description: "注册成功"
-  },
-  "202": {
-    type: "success",
-    msg: {
-      "zh-CN": "登录成功，正在跳转......",
-      en: "Login successful,Please wait a seconds."
+    "202": {
+        type: "success",
+        msg: {
+            "zh-CN": "登录成功，正在跳转......",
+            en: "Login successful,Please wait a seconds."
+        },
+        description: "登录成功"
     },
-    description: "登录成功"
-  },
-  "203": {
-    type: "success",
-    msg: {
-      "zh-CN": "用户名可用",
-      en: "User name available."
+    "203": {
+        type: "success",
+        msg: {
+            "zh-CN": "用户名可用",
+            en: "User name available."
+        },
+        description: "无重名用户或邮箱"
     },
-    description: "无重名用户或邮箱"
-  },
-  "204": {
-    type: "success",
-    msg: {
-      "zh-CN": "密码重置成功",
-      en: "Password reset successfully"
+    "204": {
+        type: "success",
+        msg: {
+            "zh-CN": "密码重置成功",
+            en: "Password reset successfully"
+        },
+        description: "密码重置成功"
     },
-    description: "密码重置成功"
-  },
-  "211": {
-    type: "success",
-    msg: {
-      "zh-CN": "邮件已经发送，请稍等片刻，或者查看您的垃圾邮件箱",
-      en: "Email has been sent, please wait a moment, or check your spam box."
+    "211": {
+        type: "success",
+        msg: {
+            "zh-CN": "邮件已经发送，请稍等片刻，或者查看您的垃圾邮件箱",
+            en: "Email has been sent, please wait a moment, or check your spam box."
+        },
+        description: "邮件已发送"
     },
-    description: "邮件已发送"
-  },
-  "212": {
-    type: "success",
-    msg: {
-      "zh-CN": "链接有效，请稍等，正在获取您的资料",
-      en:
-        "The link is valid, please wait a moment, it is getting your information."
-    },
-    description: "链接有效"
-  }
+    "212": {
+        type: "success",
+        msg: {
+            "zh-CN": "链接有效，请稍等，正在获取您的资料",
+            en: "The link is valid, please wait a moment, it is getting your information."
+        },
+        description: "链接有效"
+    }
 };
 
-export default function(code) {
-  return success[code];
+export default function (code) {
+    return success[code];
 }

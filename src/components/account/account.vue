@@ -83,6 +83,7 @@ $lang-color: rgba(255, 255, 255, 0.8);
   flex-direction: column;
   overflow: hidden;
   justify-content: center;
+  //
   background: url(../../images/bg.png) no-repeat center center fixed;
   &::before {
     clear: both;

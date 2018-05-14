@@ -1,11 +1,6 @@
 <template>
   <div id="ix-home">
     <Header></Header>
-    <!-- <div id="ix-viewport" ref="viewport">
-      <div class="ix-viewport-item">
-        <router-view></router-view>
-      </div>
-    </div> -->
     <transition name="slide-fade" mode="out-in">
       <router-view></router-view>
     </transition>
@@ -34,9 +29,6 @@ export default {
   }
   height: 100%;
   width: 100%;
-}
-.slide-fade-enter {
-  background: red;
 }
 .slide-fade-enter-active {
   transition: all 0.2s ease;
