@@ -12,7 +12,7 @@
                             type="drag"
                             name="upload"
                             :data="data"
-                            action="//107.151.172.35/uploadimg.php">
+                            action="//107.151.172.35/uploadhtm.php">
                             <div style="padding: 20px 0">
                                 <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
                                 <p>Click or drag files here to upload</p>
@@ -39,8 +39,7 @@ export default {
         files: null
       },
       data: {
-        token: "bfbd2490cac0d378a461869b995499a9",
-        htmlname: "./html/c59580f5bd9f275c65bc96959df77a39.html",
+        token: "5b299e2a21fd76d5b470f51daf31bf69",
         username: "virgin-forest"
       }
     };

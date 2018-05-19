@@ -36,6 +36,9 @@ const article = r =>
 const upload = r =>
     require.ensure([], () => r(require("../page/home/upload")), "upload");
 
+const uploadimg = r =>
+    require.ensure([], () => r(require("../page/home/upload/uploadimg.vue")), "uploadimg");
+
 const user = r =>
     require.ensure([], () => r(require("../page/home/user")), "user");
 
@@ -55,13 +58,18 @@ export default [
             },
             {
                 path: "article/:username",
-                name: "upload",
+                name: "user",
                 component: user
             },
             {
-                path: "article/:username/upload",
+                path: "article/upload/:username",
                 name: "upload",
                 component: upload
+            },
+            {
+                path: "article/edit/:username",
+                name: "edit",
+                component: uploadimg
             }
         ]
     },
