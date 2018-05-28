@@ -20,10 +20,21 @@ http.interceptors.response.use(response => {
     return Promise.reject(error);
 })
 
+
+
 export const request = async param => {
-    if (API[param.url] === undefined) return;
+    let url = param.url
+    try {
+        if (API[url] === undefined) {
+            url = `${url}.php`
+        } else {
+            url = API[url];
+        }
+    } catch (e) {
+        console.log(e)
+    }
     return http({
-        url: API[param.url],
+        url: url,
         data: qs.stringify(param.data),
     })
 }

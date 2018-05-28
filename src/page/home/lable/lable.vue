@@ -1,13 +1,14 @@
 <template>
-    <div>
-
+    <div class="ix-lable">
+        <h2>LABLE: Python</h2>
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+
+};
 </script>
 
 <style scoped>
-
 </style>

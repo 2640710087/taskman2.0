@@ -39,6 +39,7 @@ export default {
   },
   methods: {
     async submit() {
+      document.activeElement.blur();
       this.loadtext = "Loading...";
       this.loading = true;
       await sendMail(this.email).then(res => {
@@ -70,5 +71,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

@@ -22,7 +22,7 @@ export default {
         scrollbars: "custom",
         taps: true
       });
-      this.$store.state.ISCROLL.iscroll = iscroll;
+      this.$store.commit("setIscroll", iscroll);
     },
     isPassive() {
       var supportsPassiveOption = false;

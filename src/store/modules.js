@@ -5,6 +5,9 @@ const ISCROLL = {
     mutations: {
         setIscroll(state, iscroll) {
             state.iscroll = iscroll;
+        },
+        refresh(state) {
+            state.iscroll.refresh();
         }
     }
 }
@@ -17,12 +20,33 @@ const USER_INFO = {
     mutations: {
         setUserInfo(state, userInfo) {
             state.username = userInfo.username;
-            state.token = username.token;
+            state.token = userInfo.token;
+        }
+    },
+    getters: {
+        getUserInfo(state) {
+            return state
         }
     }
 }
 
+const SEARCH = {
+    state: {
+        query: ''
+    },
+    mutations: {
+        search(state, query) {
+            state.query = query;
+        }
+    },
+    getters: {
+        getSearch(state) {
+            return state.query;
+        }
+    }
+}
 export {
     ISCROLL,
-    USER_INFO
+    USER_INFO,
+    SEARCH
 }

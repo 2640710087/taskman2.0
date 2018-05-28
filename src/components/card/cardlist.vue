@@ -7,7 +7,7 @@
                 :title="article.title"
                 :summary="article.summary"
                 :time="article.time"
-                :location="article.location"
+                :location="`${host}/html/${article.location}`"
                 :lables="article.tag"
                 ></Card>
             </li>
@@ -17,9 +17,12 @@
 
 <script>
 import Card from "./card.vue";
+import { baseURL } from "@/config/env";
 export default {
   data() {
-    return {};
+    return {
+      host: baseURL
+    };
   },
   props: {
     articlelist: {
@@ -36,5 +39,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

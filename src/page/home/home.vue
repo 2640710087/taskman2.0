@@ -1,25 +1,55 @@
 <template>
   <div id="ix-home">
-    <Header></Header>
+    <Header @clickMenu="handleDisplay" @clickMask="handleDisplay">
+      <router-link to="/" class="ix-logo" slot="logo"></router-link>
+      <userMenu :username="username" :display="display" slot="menu" @clickemit="handleDisplay"></userMenu>
+    </Header>
     <transition name="slide-fade" mode="out-in">
-      <router-view></router-view>
+      <div class="ix-home-container">
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </div>
     </transition>
   </div>
 </template>
 
 <script>
 import Header from "@@/header";
-
+import userMenu from "@@/menu";
+import { checkToken } from "@/plugins/senddata";
 export default {
+  data() {
+    return {
+      display: false
+    };
+  },
+  methods: {
+    handleDisplay() {
+      this.display = !this.display;
+    }
+  },
+  computed: {
+    username() {
+      return this.$store.state.USER_INFO.username;
+    }
+  },
+  mounted() {
+    let { username, token } = this.$store.getters.getUserInfo;
+    console.log(username, token);
+    checkToken(username, token);
+  },
   components: {
-    Header
+    Header,
+    userMenu
   }
 };
 </script>
 
 <style scoped lang="scss">
+$logo-hw: 32px !default;
 #ix-home {
-  overflow: hidden;
+  // overflow: hidden;
   min-width: 320px;
   &::before {
     clear: both;
@@ -29,6 +59,11 @@ export default {
   }
   height: 100%;
   width: 100%;
+}
+.ix-home-container {
+  margin-top: 56px;
+  width: 100%;
+  height: calc(100% - 56px);
 }
 .slide-fade-enter-active {
   transition: all 0.2s ease;
@@ -40,5 +75,15 @@ export default {
 .slide-fade-leave-to {
   transform: translateX(20px);
   opacity: 0;
+}
+
+.ix-logo {
+  display: block;
+  width: $logo-hw;
+  height: $logo-hw;
+  background-size: $logo-hw;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  background-image: url("../../images/logo.png");
 }
 </style>

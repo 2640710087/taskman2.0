@@ -8,8 +8,8 @@ html {
   display: block;
   height: 100%;
   width: 100%;
-  font-size: 12px; // -ms-touch-action: none;
-  /* overflow: auto; */
+  font-size: 12px;
+  -ms-touch-action: none;
 }
 
 body {
@@ -17,9 +17,7 @@ body {
   width: 100%;
   display: block;
   background-color: #f4f5f5 !important;
-  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC,
-    Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei,
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
 }
 
 body,
@@ -95,20 +93,20 @@ li {
 }
 
 .iScrollVerticalScrollbar {
-    position: absolute;
-    z-index: 9999;
-    width: 8px;
-    bottom: 2px;
-    top: 2px;
-    right: 0px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    border-radius: 4px;
-    .iScrollIndicator {
-        position: fixed;
-        background: rgba(0, 0, 0, 0.2);
-        width: 2px;
-        border-radius: 8px;
-    }
+  position: absolute;
+  z-index: 9999;
+  width: 8px;
+  bottom: 2px;
+  top: 2px;
+  right: 0px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  border-radius: 4px;
+  .iScrollIndicator {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.2);
+    width: 2px;
+    border-radius: 8px;
+  }
 }

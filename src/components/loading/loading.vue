@@ -8,7 +8,9 @@
               <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10"></circle>
             </svg>
           </div>
-          <span class="loading-text">{{ loadingtext }}</span>
+          <span class="loading-text">
+            <slot>{{ loadingtext }}</slot>
+          </span>
         </div>
       </div>
     </div>

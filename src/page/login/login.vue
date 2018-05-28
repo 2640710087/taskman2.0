@@ -26,7 +26,8 @@
 <script>
 import { FormItem, Icon, Input, Button } from "iview";
 import account from "@/components/account/account";
-import { login } from "../../plugins/account";
+import { login, Sleep } from "../../plugins/account";
+import { checkToken } from "@/plugins/senddata";
 import lang from "../../locale/";
 import { setStorage } from "../../config/other";
 export default {
@@ -51,46 +52,44 @@ export default {
   methods: {
     //提交按钮
     async submit() {
+      document.activeElement.blur();
       this.loading = true;
       this.loadtext = "Loading...";
-      await login({
+
+      let loginRes = await login({
         username: this.username,
         password: this.password
-      }).then(res => {
-        this.loading = false;
-        this.loginResponse(res);
       });
+      this.loading = false;
+      this.loginResponse(loginRes);
     },
-    loginResponse(res) {
-      let code = res.code;
+    async loginResponse(res) {
+      let { code, username, token } = res;
+      checkToken(username, token);
       this.$Tip(code, this.Lang);
+
       if (code > 300) {
         this.error++;
+        this.password = "";
       } else if (code === 201) {
         // after one seconds loading;
-        // setStorage("username", res.username);
-        // setStorage("token", res.token);
-        this.$store.state.USER_INFO.username = res.username;
-        this.$store.state.USER_INFO.token = res.token;
-        setTimeout(() => {
-          this.loading = true;
-        }, 1000);
-        console.log(this.$router);
+        setStorage("userInfo", { username, token });
+        this.$store.commit("setUserInfo", { username, token });
+        await Sleep(1000);
+        this.loading = true;
         // after three seconds jump to home.
-        setTimeout(() => {
-          this.loading = false;
-          this.$router.push("/");
-        }, 3000);
+        await Sleep(2020);
+        this.loading = false;
+        this.$router.push("/");
       }
     },
     //切换语言
-    switchLang(lang) {
+    async switchLang(lang) {
       this.loading = true;
       this.loadtext = "Setting Language";
-      setTimeout(() => {
-        this.loading = false;
-        this.Lang = lang;
-      }, 800);
+      await Sleep(3000);
+      this.loading = false;
+      this.Lang = lang;
     }
   },
   components: {

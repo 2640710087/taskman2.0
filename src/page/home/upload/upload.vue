@@ -7,17 +7,11 @@
                         <div class="">
                             Upload
                         </div>
-                        <Upload
-                            multiple
-                            type="drag"
-                            name="upload"
-                            :data="data"
-                            action="//107.151.172.35/uploadimg.php">
-                            <div style="padding: 20px 0">
-                                <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-                                <p>Click or drag files here to upload</p>
-                            </div>
-                        </Upload>
+                        <input id="file" data-unprevent type="file" ref="file" @click="f">
+                        <div>
+                          {{ src }}
+                        </div>
+                        <img :src="src">
                     </div>
                 </div>
             </ISC>
@@ -42,10 +36,44 @@ export default {
         token: "bfbd2490cac0d378a461869b995499a9",
         htmlname: "./html/c59580f5bd9f275c65bc96959df77a39.html",
         username: "virgin-forest"
-      }
+      },
+      src: ""
     };
   },
-  methods: {},
+  methods: {
+    f() {
+      this.$refs.file.addEventListener(
+        "change",
+        e => {
+          console.log(e);
+
+          let file = e.target.files[0];
+          this.src = file.name;
+          this.src = this.r(file).result;
+        },
+        false
+      );
+    },
+    r(f) {
+      console.log(f);
+      let r = new FileReader();
+      console.log(r.readAsDataURL(f));
+      r.onloadend = e => {
+        console.log(e);
+        this.src = e.target.result;
+      };
+
+      return r;
+    }
+  },
+  mounted() {
+    let username = this.$store.state.USER_INFO.username;
+    username = true;
+    if (!username) {
+      this.$router.replace("/notfound");
+    }
+    console.log();
+  },
   components: {
     ISC,
     Icon,

@@ -1,5 +1,5 @@
 <template>
-  <div id="account">
+  <div id="account" ref="container">
     <div class="form-body vague" :class="{blur: loading}">
 
       <Row type="flex" justify="center" class="title" v-if="title">
@@ -18,6 +18,7 @@
       <Row type="flex" justify="center" v-if="langSwitch">
         <Col :xs="22" :sm="10" :md="8" :lg="6" class="lang">
         <span>
+          
           <span class="chinese" @click="switchLang('zh-CN')" >中文</span>
           <span class="english" @click="switchLang('en')" >English</span>
         </span>
@@ -91,14 +92,6 @@ $lang-color: rgba(255, 255, 255, 0.8);
     display: block;
     overflow: auto;
   }
-  // .bg {
-  //   position: fixed;
-  //   height: 100%;
-  //   width: 100%;
-
-  //   background-size: cover;
-  //   z-index: -9999999;
-  // }
   .title {
     margin: 10px 0 20px 0;
     text-align: center;

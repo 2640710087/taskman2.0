@@ -63,7 +63,7 @@ export default {
       }).then(res => {
         this.loading = false;
 
-        if (res.code === 204) {
+        if (res.code === 201) {
           this.Response(res.code);
         } else {
           this.$Tip(res.code, this.Lang);
@@ -102,5 +102,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

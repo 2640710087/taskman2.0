@@ -8,6 +8,7 @@
           </div>
         </div>
       </ISC>
+      <Loading v-if="!article" >文章加载中...</Loading>
     </div>
   </div>
 </template>
@@ -16,6 +17,7 @@
 import { Cardlist } from "@@/card";
 import ISC from "@@/iscroll";
 import { getArtList } from "@/plugins/senddata";
+import Loading from "@@/loading";
 export default {
   data() {
     return {
@@ -23,17 +25,32 @@ export default {
     };
   },
   methods: {},
-  mounted() {
-    getArtList().then(res => {
-      this.article = res.article;
-      setTimeout(() => {
-        this.$store.state.ISCROLL.iscroll.refresh();
-      }, 0);
-    });
+  async mounted() {
+    getArtList()
+      .then(res => {
+        if (res.code < 300 && res.article) {
+          let { code, article } = res;
+          this.article = article;
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .then(res => {
+        if (res)
+          setTimeout(() => {
+            this.$store.commit("refresh");
+          }, 0);
+        else console.log("get article failed!");
+      })
+      .catch(e => {
+        console.log(`Error message: ${e.message}`);
+      });
   },
   components: {
     Cardlist,
-    ISC
+    ISC,
+    Loading
   }
 };
 </script>
@@ -42,11 +59,7 @@ export default {
 .ix-article {
   width: 100%;
   display: flex;
-  // 水平居中
-  justify-content: center;
-  // 垂直居中 align-items
-  margin-top: 56px;
-  height: calc(100% - 56px);
+  height: 100%;
   .ix-article-container {
     width: 100%;
     position: relative;
@@ -61,7 +74,6 @@ export default {
     max-width: 800px;
     padding: {
       top: 20px;
-      //   bottom: 100px;
     }
   }
 }

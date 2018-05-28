@@ -3,16 +3,17 @@
         <div class="ix-card-container">
             <!-- 作者 标题 概述 时间 标签 -->
             <h4 class="ix-author-info">
-                <div class="ix-author-name">
-                    {{ author }}
-                </div>
+                <router-link :to="`user/${author}`">
+                  <div class="ix-author-name">
+                      {{ author }}
+                  </div>
+                </router-link>
                 <span class="ix-symbol">·</span>
                 <div class="ix-article-time">
                     {{ time }}
                 </div>
             </h4>
             <div class="ix-article">
-
                     <h2 class="ix-article-title">
                         <div class="ix-article-title-content">
                             <a :href="location" target="_blank">
@@ -99,7 +100,7 @@ $card-mb: 10px !default;
     bottom: $card-mb;
   }
   .ix-card-container {
-    padding: 14px 20px;
+    padding: 16px 20px;
     .ix-author-info {
       cursor: default;
       display: flex;
@@ -109,11 +110,8 @@ $card-mb: 10px !default;
       .ix-author-name {
         cursor: pointer;
         color: #444;
-        margin: {
-          // right: 14px;
-        }
         font: {
-          size: 13px;
+          size: 14px;
           weight: 600;
         }
       }
@@ -146,7 +144,7 @@ $card-mb: 10px !default;
               weight: 600;
             }
             &:hover {
-              color: #393f9b;
+              color: #175199;
             }
           }
           line-height: 1.6;
@@ -155,10 +153,10 @@ $card-mb: 10px !default;
       .ix-article-summary {
         .ix-article-link {
           &:hover {
-            color: #666;
+            color: #646464;
           }
           word-wrap: break-word;
-          color: #1a1a1a;
+          color: #181818;
           margin: {
             bottom: 4px;
           }
@@ -173,6 +171,13 @@ $card-mb: 10px !default;
       .ix-article-info {
         display: flex;
         flex-direction: column;
+        padding: {
+          left: 20px;
+          right: 20px;
+          top: 15px;
+          bottom: 8px;
+        }
+        margin: -10px -20px;
         .ix-article-lable {
           .ix-article-lable-list {
             display: flex;

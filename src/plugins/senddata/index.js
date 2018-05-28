@@ -3,8 +3,8 @@ import {
 } from "../../config/axios";
 
 // 确认用户和邮箱是否存在
-export const checkEU = parameter =>
-    request({
+export const checkEU = async parameter =>
+    await request({
         url: "checkeu",
         data: {
             data: {
@@ -14,8 +14,8 @@ export const checkEU = parameter =>
     });
 
 //发送邮件
-export const sendMail = data =>
-    request({
+export const sendMail = async data =>
+    await request({
         url: "sendmail",
         data: {
             data
@@ -23,8 +23,8 @@ export const sendMail = data =>
     });
 
 //发送登录请求
-export const login = data =>
-    request({
+export const login = async data =>
+    await request({
         url: "login",
         data: {
             data
@@ -32,8 +32,8 @@ export const login = data =>
     });
 
 //发送注册请求
-export const register = data =>
-    request({
+export const register = async data =>
+    await request({
         url: "register",
         data: {
             data
@@ -41,8 +41,8 @@ export const register = data =>
     });
 
 //发送重置密码请求
-export const reset = data =>
-    request({
+export const reset = async data =>
+    await request({
         url: "reset",
         data: {
             data
@@ -50,45 +50,52 @@ export const reset = data =>
     });
 
 //发送确认链接有效请求
-export const checkLink = data =>
-    request({
+export const checkLink = async data =>
+    await request({
         url: "mailoverdue",
         data: {
             data
         }
     });
 
-export const getArtList = () =>
-    request({
-        url: "article"
-    });
-
-export const getModuleStatus = () => request({
+export const getModuleStatus = async () => await request({
     url: "getStatus"
 });
 
-export const search = () => request({
-    url: "search"
+export const getArtList = async () =>
+    await request({
+        url: "article"
+    });
+
+export const search = async keyword => await request({
+    url: "search",
+    data: {
+        data: {
+            keyword
+        }
+    }
 });
 
-export const addArt = (username, token, title, summary, tag, location) =>
-    request({
-        url: 'addart',
+export const addArt = async data =>
+    await request({
+        url: 'addArt',
+        data: {
+            data
+        }
+    })
+
+export const getTagList = async () =>
+    await request({
+        url: 'allTag'
+    })
+
+export const checkToken = async (username, token) =>
+    await request({
+        url: 'checktoken',
         data: {
             data: {
                 username,
-                token,
-                title,
-                summary,
-                tag,
-                location
+                token
             }
         }
     })
-// API:
-// checkEU
-// sendMail
-// login
-// register
-// reset
-// checkLink

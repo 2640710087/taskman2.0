@@ -1,4 +1,4 @@
-let baseURL = "http://107.151.172.35";
+let baseURL = "//107.151.172.35";
 
 let API = {
     login: "login.php",
@@ -8,14 +8,16 @@ let API = {
     mailoverdue: "mailoverdue.php",
     reset: "resetpass.php",
     getStatus: "modules.php",
-    delart: "delart.php",
-    updart: "updart.php",
-    addart: "addart.php",
+    delArt: "delart.php",
+    upArt: "updart.php",
+    addArt: "addart.php",
     article: "siart.php",
-    tagart: "start.php",
+    tagArt: "start.php",
     search: "search.php",
-    addtag: "addtag.php",
-    deltag: "deltag.php"
+    addTag: "addtag.php",
+    delTag: "deltag.php",
+    allTag: "satag.php",
+    // checktoken: "checktoken.php"
 };
 
 const checkRule = {

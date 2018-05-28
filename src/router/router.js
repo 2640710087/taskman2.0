@@ -1,4 +1,7 @@
 // import task from '../page/task/task';
+import {
+    checkLink as checklink
+} from "../plugins/account/resetPassword";
 
 const login = r =>
     require.ensure([], () => r(require("../page/login/login")), "login");
@@ -20,7 +23,7 @@ const resetPassword = r =>
 const sendmail = r =>
     require.ensure([], () => r(require("../page/reset/sendmail")), "sendmail");
 
-const notfound = r =>
+const notFound = r =>
     require.ensure(
         [],
         () => r(require("../page/notFound/notfound")),
@@ -33,43 +36,76 @@ const home = r =>
 const article = r =>
     require.ensure([], () => r(require("../page/home/article")), "article");
 
-const upload = r =>
-    require.ensure([], () => r(require("../page/home/upload")), "upload");
-
-const uploadimg = r =>
-    require.ensure([], () => r(require("../page/home/upload/uploadimg.vue")), "uploadimg");
-
 const user = r =>
     require.ensure([], () => r(require("../page/home/user")), "user");
 
-import { checkLink as checklink } from "../plugins/account/resetPassword";
+const lable = r =>
+    require.ensure([], () => r(require("../page/home/lable")), "lable");
 
-export default [
-    {
+const search = r =>
+    require.ensure([], () => r(require("../page/home/search")), "search");
+
+const addArt = r =>
+    require.ensure([], () => r(require("../page/home/addArt")), "addArt");
+
+const edit = r =>
+    require.ensure([], () => r(require("../page/home/edit")), "edit");
+
+const upload = r =>
+    require.ensure([], () => r(require("../page/home/upload")), "upload");
+
+const edits = r =>
+    require.ensure([], () => r(require("../page/home/upload/uploadimg.vue")), "uploadimg");
+
+export default [{
         path: "/",
         name: "index",
         component: home,
         redirect: "article",
-        children: [
-            {
+        children: [{
                 path: "article",
                 name: "article",
                 component: article
             },
             {
-                path: "article/:username",
+                path: "user/:username",
                 name: "user",
                 component: user
             },
             {
-                path: "article/upload/:username",
-                name: "upload",
-                component: upload
+                path: "article/edit",
+                name: "edit",
+                component: edit
             },
             {
-                path: "article/edit/:username",
-                name: "edit",
-                component: uploadimg
+                path: "article/add",
+                name: "add",
+                component: addArt
+            },
+            {
+                path: "search",
+                name: "search",
+                component: search
+            },
+            {
+                path: "search/:query",
+                name: "query",
+                component: search
+            },
+            {
+                path: "upload",
+                name: "upload",
+                component: addArt
+            },
+            {
+                path: "article/edits",
+                name: "edits",
+                component: edits
+            },
+            {
+                path: "article/lable/:lable",
+                name: "lable",
+                component: lable
             }
         ]
     },
@@ -91,7 +127,7 @@ export default [
     },
     {
         //验证key，然后重置密码，否则跳转
-        path: "/resetpass/:random",
+        path: "/reset_password/:random",
         name: "resetpass",
         component: resetPassword,
         meta: {
@@ -112,7 +148,7 @@ export default [
     {
         path: "/link_failed/:random",
         name: "link_failed",
-        component: notfound,
+        component: notFound,
         beforeEnter: async (to, from, next) => {
             let data;
             let random_Regex = /[a-z0-9]{128}/;
@@ -124,8 +160,13 @@ export default [
         }
     },
     {
-        path: "/*",
+        path: "/notfound",
         name: "notfound",
-        component: notfound
+        component: notFound
+    },
+    {
+        path: "/*",
+        name: "nomatch",
+        component: notFound
     }
 ];

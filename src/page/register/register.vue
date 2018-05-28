@@ -93,7 +93,7 @@ export default {
     }
   },
   methods: {
-    submit(e) {
+    async submit(e) {
       this.loadtext = "Loading...";
       let time = 0;
       let timer = setInterval(() => {
@@ -127,17 +127,44 @@ export default {
         });
       } else {
         clearInterval(timer);
+        ["Username", "Password", "Email", "Confirm"].forEach(async v => {
+          await this["handle" + v]();
+          console.log();
+        });
+        if (this.registerStatus) {
+          console.log(1, this.registerStatus);
+          this.submit();
+        }
         setTimeout(() => {
           this.loading = false;
-          ["username", "password", "email", "confirm"].forEach(v => {
-            this.blur(v);
-          });
           this.$Tip(324, this.Lang);
         }, 1000 - time * 10);
       }
     },
     focus(type) {
       if (this.error[type] > 300) this.error[type] = null;
+    },
+    handlePassword() {
+      if (!check("password", this["password"])) this.error["password"] = 303;
+      else this.error["password"] = 200;
+    },
+    async handleUsername() {
+      if (!check("username", this["username"])) this.error["username"] = 302;
+      else
+        await blur("username", this["username"]).then(res => {
+          this.error["username"] = res.code;
+        });
+    },
+    async handleEmail() {
+      if (!check("email", this["email"])) this.error["email"] = 304;
+      else
+        await blur("email", this["email"]).then(res => {
+          this.error["email"] = res.code;
+        });
+    },
+    handleConfirm() {
+      if (this.confirm != this.password) return;
+      else this.error["confirm"] = 200;
     },
     blur(type) {
       if (!this[type]) {

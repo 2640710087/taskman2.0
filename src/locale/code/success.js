@@ -3,22 +3,22 @@ const success = {
         type: "success",
         msg: {
             "zh-CN": "操作成功",
-            en: "Registered successfully."
+            en: "successfully."
         },
         description: "注册成功"
     },
     "202": {
         type: "success",
         msg: {
-            "zh-CN": "登录成功，正在跳转......",
-            en: "Login successful,Please wait a seconds."
+            "zh-CN": "query successfully.",
+            en: "ok"
         },
-        description: "登录成功"
+        description: "query successfully."
     },
     "203": {
         type: "success",
         msg: {
-            "zh-CN": "用户名可用",
+            "zh-CN": "可用",
             en: "User name available."
         },
         description: "无重名用户或邮箱"
