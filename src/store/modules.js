@@ -30,23 +30,7 @@ const USER_INFO = {
     }
 }
 
-const SEARCH = {
-    state: {
-        query: ''
-    },
-    mutations: {
-        search(state, query) {
-            state.query = query;
-        }
-    },
-    getters: {
-        getSearch(state) {
-            return state.query;
-        }
-    }
-}
 export {
     ISCROLL,
-    USER_INFO,
-    SEARCH
+    USER_INFO
 }

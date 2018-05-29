@@ -1,15 +1,12 @@
 <template>
   <header class="ix-header">
     <div class="ix-container d-flex">
-      
-      <div class="ix-nav"  >
+      <div class="ix-nav">
         <div @click="$router.go(-1)" v-if="search" class="ix-cancel">
           <Icon type="ios-arrow-back" size="24" class="ix-back"></Icon>
-          <span style="margin-left: 5px;">取消</span>
-      </div>
+        </div>
         <slot name="logo" v-else></slot>
       </div>
-      
       <div class="ix-d-flex d-flex ix-min-w">
         <search slot="search" :display="search"></search>
       </div>
@@ -17,8 +14,10 @@
         <div class="ix-user-icon" @click="$handleAnimation">
             <Icon type="more" size="30" ></Icon>
         </div>
-        <!--  menu -->
-        <slot name="menu"></slot>
+
+        <!--  -->
+        <slot name="menu" v-if="!search"></slot>
+        
       </div>
 
     </div>
@@ -42,7 +41,7 @@ export default {
   computed: {
     search() {
       let fullpath = this.$route.fullPath;
-      let pathRegex = /^\/(search)(?:\?.*|\/.*)?$/i;
+      let pathRegex = /^\/(search)(?:\/.*)?$/i;
       return pathRegex.test(fullpath);
     }
   },
@@ -102,30 +101,12 @@ export default {
     min-width: 320px;
     position: relative;
     height: 40px;
-    line-height: 32px;
+    line-height: 30px;
     align-items: center;
     flex-direction: row;
     justify-content: space-around;
     .ix-nav {
-      // .ix-logo {
-      //   margin: {
-      //     left: 8px;
-      //     right: 16px;
-      //   }
-      //   display: block;
-      //   width: $logo-hw;
-      //   height: $logo-hw;
-      //   background-size: $logo-hw;
-      //   background-repeat: no-repeat;
-      //   overflow: hidden;
-      //   background-image: url("../../images/logo.png");
-      // }
-
-      height: 32px;
       margin-left: 8px;
-      display: flex;
-      justify-content: center;
-      align-content: center;
     }
     .ix-d-flex {
       align-items: center;
@@ -179,15 +160,11 @@ export default {
 }
 .ix-cancel {
   color: #ccc;
-  // width: 100%;
-  // width: 32px;
+  width: 32px;
   transform-origin: center;
-  // transform: rotate(180deg);
   display: flex;
   align-content: center;
   justify-content: center;
-  white-space: nowrap;
-  cursor: pointer;
 }
 .ix-back {
   line-height: 30px;

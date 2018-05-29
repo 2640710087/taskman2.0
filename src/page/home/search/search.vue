@@ -1,40 +1,30 @@
 <template>
-    <div>
-         <Tabs value="name2">
-        <TabPane label="文章" name="name1">
-        <div v-if="articles">
-            <div v-for="(article, index) in articles" :key="index">
-                {{ article }}
-            </div>
+    <div class="ix-page-search">
+      <div class="ix-tabs">
+        <div class="ix-tabs-bar">
+          <div class="ix-tabs-bar-nav-item">文章</div>
+          <div class="ix-tabs-bar-nav-item">标签</div>
+          <div class="ix-tabs-bar-nav-item">用户</div>
         </div>
-        </TabPane>
-        <TabPane label="标签" name="name2">
-          <div v-if="tags">
-            <div v-for="(tag, index) in tags" :key="index">
-                {{ tag }}
-            </div>
+        <div class="ix-tabs-content">
+          <div class="ix-tabs-content-item">article</div>
+          <div class="ix-tabs-content-item">label</div>
+          <div class="ix-tabs-content-item">user</div>
         </div>
-        </TabPane>
-        <TabPane label="用户" name="name3">
-                  <div v-if="users">
-            <div v-for="(user, index) in users" :key="index">
-                {{ user.username }}
-            </div>
-        </div>
-        </TabPane>
-    </Tabs>
+      </div>
     </div>
 </template>
 
 <script>
 import { search, checkToken } from "@/plugins/senddata";
-import { Tabs, TabPane } from "iview";
+import { setStorage, getStorage } from "@/config/other";
 export default {
   data() {
     return {
       tags: [],
       articles: [],
-      users: []
+      users: [],
+      searchHistory: ["zhongqi"]
     };
   },
   computed: {},
@@ -49,6 +39,14 @@ export default {
         this.tags = tag;
       }
       this.users = user;
+    },
+    setSearchHistory() {
+      let { searchHistory } = this;
+      setStorage("searchHistory", searchHistory);
+    },
+    getSearchHistory() {
+      let searchHistory = getStorage("searchHistory");
+      this.searchHistory = searchHistory;
     }
   },
   async mounted() {
@@ -60,15 +58,32 @@ export default {
   watch: {
     $route(Val, oldVal) {
       let { query } = Val.params;
-      this.getSearch(query);
+      if (query) {
+        this.getSearch(query);
+      }
+    },
+    setSearchHistory(newVal, oldVal) {
+      console.log(newVal, oldVal);
     }
   },
-  components: {
-    Tabs,
-    TabPane
-  }
+  components: {}
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.ix-page-search {
+  .ix-tabs-bar {
+    display: flex;
+  }
+  .ix-tabs-bar-nav-item {
+    width: 100%;
+  }
+  .ix-tabs-content {
+    display: flex;
+  }
+  .ix-tabs-content-item {
+    flex-shrink: 0;
+    width: 100%;
+  }
+}
 </style>

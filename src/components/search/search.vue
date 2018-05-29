@@ -6,6 +6,7 @@
       </label>
       <div  @click="handleClick()" class="ix-search-box">
         <input id="input" type="text" class="ix-search-input" placeholder="Search Forest" 
+
         :maxlength="38"
         v-model.trim="query"
         @focus="$handleFocus"
@@ -18,13 +19,11 @@
         @blur="$handleBlur"
         ref="search"
         >
+        <!-- <div v-else class="ix-placeholder">Search Forest</div> -->
         <span @click="handleClear">
           <Icon type="ios-close" size="16" class="ix-close-icon" v-show="query" ></Icon>
         </span>
-        
       </div>
-
-      
     </div>
   </div>
 </template>
@@ -37,7 +36,8 @@ export default {
   data() {
     return {
       query: null,
-      focus: false
+      focus: false,
+      display: false
     };
   },
   computed: {
@@ -50,18 +50,17 @@ export default {
       if (!this.search) {
         this.$router.push("/search");
       }
+      this.setFocus();
     },
     handleClear() {
-      console.log("clear");
       this.query = "";
-      this.$focus();
+      this.setFocus();
     },
     async $handleEnter(event) {
       this.$emit("enter", event);
       let { query } = this;
       if (query) {
         this.$refs.search.blur();
-        this.$store.commit("search", query);
         if (this.search) {
           this.$router.replace(`/search/${query}`);
         } else {
@@ -93,8 +92,15 @@ export default {
     $handleKeydown(event) {
       this.$emit("$keydown", event);
     },
-    $focus() {
-      this.$refs.search.focus();
+    setFocus() {
+      this.display = true;
+      this.$nextTick(e => {
+        this.$refs.search.focus();
+      });
+    },
+    setBlur() {
+      // this.display = none;
+      this.$refs.search.blur();
     },
     isSearch(path) {
       let pathRegex = /^\/(search)(?:\?.*|\/.*)?$/i;
@@ -109,8 +115,9 @@ export default {
     if (this.isSearch(this.$route.fullPath)) {
       if (query) {
         this.query = query;
+        this.setBlur();
       } else {
-        // this.$focus();
+        this.setFocus();
       }
     }
   },
@@ -120,8 +127,10 @@ export default {
       this.query = query;
       if (this.isSearch(Val.fullPath)) {
         if (!query) {
-          // this.$focus();
+          this.setFocus();
         }
+      } else {
+        this.setBlur();
       }
     }
   }
@@ -130,8 +139,8 @@ export default {
 
 <style scoped lang="scss">
 #ix-search-container {
-  height: 30px;
-  line-height: 30px;
+  height: 26px;
+  line-height: 26px;
   width: 100%;
   border-radius: 20px;
   overflow: hidden;
@@ -156,14 +165,13 @@ export default {
     }
 
     .ix-search-input {
-      line-height: 30px;
       height: 100%;
       width: 100%;
       background: none;
       outline: none;
       color: #fff;
       transition: color 0.2s;
-      font-size: 14px;
+      font-size: 12px;
       &:focus {
         color: #000;
       }
@@ -179,6 +187,11 @@ export default {
     }
   }
 }
+.ix-placeholder {
+  color: #666a6d;
+  font-size: 12px;
+  line-height: 26px;
+}
 .ix-search-box {
   width: 100%;
   display: flex;
@@ -191,8 +204,7 @@ export default {
   position: absolute;
   right: 10px;
   height: 100%;
-
-  line-height: 30px;
+  line-height: 26px;
 }
 .slide-fade-enter-active {
   transition: all 0.2s ease;
