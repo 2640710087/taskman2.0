@@ -9,7 +9,8 @@ html {
   height: 100%;
   width: 100%;
   font-size: 12px;
-  -ms-touch-action: none;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
 }
 
 body {
@@ -50,6 +51,7 @@ input,
 select,
 figure,
 figcaption {
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -109,4 +111,13 @@ li {
     width: 2px;
     border-radius: 8px;
   }
+}
+
+.ix-nofound {
+  width: 100%;
+  margin-top: 100px;
+  // color: white;
+  font-size: 20px;
+  font-family: PingFang SC,STHeitiSC-Light,Helvetica-Light,arial,sans-serif;
+  text-align: center;
 }

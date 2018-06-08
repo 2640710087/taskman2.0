@@ -69,10 +69,9 @@ export const getArtList = async () =>
 
 export const search = async keyword => await request({
     url: "search",
+    method: 'get',
     data: {
-        data: {
-            keyword
-        }
+        keyword
     }
 });
 

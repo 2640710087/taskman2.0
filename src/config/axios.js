@@ -22,19 +22,28 @@ http.interceptors.response.use(response => {
 
 
 
-export const request = async param => {
-    let url = param.url
+export const request = async ({
+    url,
+    data,
+    method = 'post'
+}) => {
     try {
         if (API[url] === undefined) {
             url = `${url}.php`
         } else {
             url = API[url];
         }
+        if (method = 'get') {
+            url += `?${qs.stringify(data)}`;
+        } else {
+            data = qs.stringify(data);
+        }
     } catch (e) {
         console.log(e)
     }
     return http({
         url: url,
-        data: qs.stringify(param.data),
+        method: method,
+        data,
     })
 }

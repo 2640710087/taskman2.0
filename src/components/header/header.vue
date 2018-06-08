@@ -16,7 +16,7 @@
         </div>
 
         <!--  -->
-        <slot name="menu" v-if="!search"></slot>
+        <slot name="menu"></slot>
         
       </div>
 
@@ -103,7 +103,6 @@ export default {
     height: 40px;
     line-height: 30px;
     align-items: center;
-    flex-direction: row;
     justify-content: space-around;
     .ix-nav {
       margin-left: 8px;

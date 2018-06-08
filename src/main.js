@@ -22,6 +22,7 @@ Vue.prototype.$Message.config({
     top: 80,
     duration: 3
 });
+
 Vue.prototype.$Tip = (code, lang = "en") => {
     if (code >= 200 && code < 300) {
         Message.success(success(code)["msg"][lang]);
@@ -29,23 +30,13 @@ Vue.prototype.$Tip = (code, lang = "en") => {
         Message.error(error(code)["msg"][lang]);
     }
 };
+
 // router defined
 const router = new VueRouter({
     routes
 });
+
 router.beforeEach(async (to, from, next) => {
-    // let moduledist;
-    // console.log(store);
-    // let modulenamelist = Object.keys(moduledist);
-    // if (modulenamelist.includes(to.name)) {
-    //   if (!moduledist[to.name]) {
-    //     next("/notfound");
-    //   } else {
-    //     next();
-    //   }
-    // } else {
-    //   next();
-    // }
     next();
 });
 

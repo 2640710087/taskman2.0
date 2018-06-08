@@ -61,6 +61,7 @@ $logo-hw: 32px !default;
   width: 100%;
 }
 .ix-home-container {
+  overflow-x: hidden;
   margin-top: 56px;
   width: 100%;
   height: calc(100% - 56px);

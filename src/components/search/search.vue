@@ -4,9 +4,9 @@
       <label for="input" class="ix-search-icon-container d-flex-center">
         <Icon type="ios-search-strong" size="20" class="ix-search-icon"></Icon>
       </label>
-      <div  @click="handleClick()" class="ix-search-box">
+      <div   class="ix-search-box">
         <input id="input" type="text" class="ix-search-input" placeholder="Search Forest" 
-
+        @click="handleClick()"
         :maxlength="38"
         v-model.trim="query"
         @focus="$handleFocus"
@@ -19,7 +19,6 @@
         @blur="$handleBlur"
         ref="search"
         >
-        <!-- <div v-else class="ix-placeholder">Search Forest</div> -->
         <span @click="handleClear">
           <Icon type="ios-close" size="16" class="ix-close-icon" v-show="query" ></Icon>
         </span>
@@ -36,8 +35,7 @@ export default {
   data() {
     return {
       query: null,
-      focus: false,
-      display: false
+      focus: false
     };
   },
   computed: {
@@ -55,16 +53,23 @@ export default {
     handleClear() {
       this.query = "";
       this.setFocus();
+      this.clearSearch();
+      this.$router.replace(`/search`);
     },
     async $handleEnter(event) {
       this.$emit("enter", event);
       let { query } = this;
+      console.log(query)
       if (query) {
         this.$refs.search.blur();
+
         if (this.search) {
-          this.$router.replace(`/search/${query}`);
+          this.$store.commit('query',this.query)
+          let {query, type} = this.$store.getters.getSearch;
+          query = encodeURIComponent(query)
+          this.$router.replace(`/search/${type}/${query}`);
         } else {
-          this.$router.push(`/search/${query}`);
+          this.$router.push(`/search`);
         }
       }
     },
@@ -77,6 +82,7 @@ export default {
     },
     $handleFocus(event) {
       this.focus = true;
+      this.handleClick();
       this.$emit("$focus", event);
     },
     $handleBlur(event) {
@@ -105,6 +111,9 @@ export default {
     isSearch(path) {
       let pathRegex = /^\/(search)(?:\?.*|\/.*)?$/i;
       return pathRegex.test(path);
+    },
+    clearSearch() {
+      this.$store.commit('clearSearch')
     }
   },
   components: {
@@ -115,9 +124,10 @@ export default {
     if (this.isSearch(this.$route.fullPath)) {
       if (query) {
         this.query = query;
-        this.setBlur();
+        this.$store.commit('query', query)
+        // this.setBlur();
       } else {
-        this.setFocus();
+        // this.setFocus();
       }
     }
   },
@@ -125,13 +135,12 @@ export default {
     $route(Val, oldVal) {
       let { query } = Val.params;
       this.query = query;
-      if (this.isSearch(Val.fullPath)) {
-        if (!query) {
-          this.setFocus();
-        }
-      } else {
-        this.setBlur();
+      if (!this.isSearch(Val.fullPath)) {
+        this.$store.commit("setType", 'article')
+        this.$store.commit('query', '');
+        console.log(this.$store.state.SEARCH)
       }
+      console.log(Val)
     }
   }
 };

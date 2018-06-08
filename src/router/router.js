@@ -57,6 +57,13 @@ const upload = r =>
 const edits = r =>
     require.ensure([], () => r(require("../page/home/upload/uploadimg.vue")), "uploadimg");
 
+const searchArt = r =>
+    require.ensure([], () => r(require("../page/home/search/article.vue")), "searchArt");
+
+const searchLab = r =>
+    require.ensure([], () => r(require("../page/home/search/label.vue")), "searchLab");
+const searchUser = r =>
+    require.ensure([], () => r(require("../page/home/search/user.vue")), "searchUser");
 export default [{
         path: "/",
         name: "index",
@@ -84,13 +91,39 @@ export default [{
             },
             {
                 path: "search",
-                name: "search",
-                component: search
-            },
-            {
-                path: "search/:query",
-                name: "query",
-                component: search
+                name: "search-page",
+                component: search,
+                children: [{
+                        path: 'article/:query',
+                        name: 'search-article',
+                        component: searchArt
+                    },
+                    {
+                        path: 'label/:query',
+                        name: 'search-label',
+                        component: searchLab
+                    },
+                    {
+                        path: 'user/:query',
+                        name: 'search-user',
+                        component: searchUser
+                    },
+                    {
+                        path: 'article',
+                        name: 'search-not-param-a',
+                        redirect: '/search'
+                    },
+                    {
+                        path: 'label',
+                        name: 'search-not-param-l',
+                        redirect: '/search'
+                    },
+                    {
+                        path: 'user',
+                        name: 'search-not-param-u',
+                        redirect: '/search'
+                    }
+                ]
             },
             {
                 path: "upload",
