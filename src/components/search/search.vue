@@ -59,14 +59,14 @@ export default {
     async $handleEnter(event) {
       this.$emit("enter", event);
       let { query } = this;
-      console.log(query)
+      console.log(query);
       if (query) {
         this.$refs.search.blur();
 
         if (this.search) {
-          this.$store.commit('query',this.query)
-          let {query, type} = this.$store.getters.getSearch;
-          query = encodeURIComponent(query)
+          this.$store.commit("query", this.query);
+          let { query, type } = this.$store.getters.getSearch;
+          query = encodeURIComponent(query);
           this.$router.replace(`/search/${type}/${query}`);
         } else {
           this.$router.push(`/search`);
@@ -113,7 +113,15 @@ export default {
       return pathRegex.test(path);
     },
     clearSearch() {
-      this.$store.commit('clearSearch')
+      this.$store.commit("clearSearch");
+    },
+    setType(path) {
+      let pathReg = /\/search(?:\/(.*)\/.*|)/i;
+      console.log(pathReg.exec(path));
+      let type = pathReg.exec(path)[1];
+      if (type) {
+        this.$store.commit("setType", type);
+      }
     }
   },
   components: {
@@ -121,13 +129,12 @@ export default {
   },
   mounted() {
     let { query } = this.$route.params;
-    if (this.isSearch(this.$route.fullPath)) {
+    let path = this.$route.fullPath;
+    if (this.isSearch(path)) {
       if (query) {
         this.query = query;
-        this.$store.commit('query', query)
-        // this.setBlur();
-      } else {
-        // this.setFocus();
+        this.$store.commit("query", query);
+        this.setType(path);
       }
     }
   },
@@ -136,11 +143,12 @@ export default {
       let { query } = Val.params;
       this.query = query;
       if (!this.isSearch(Val.fullPath)) {
-        this.$store.commit("setType", 'article')
-        this.$store.commit('query', '');
-        console.log(this.$store.state.SEARCH)
+        this.$store.commit("setType", "article");
+        this.$store.commit("query", "");
+        console.log(this.$store.state.SEARCH);
+      } else if (this.isSearch(Val.fullPath) && !query) {
+        this.$store.commit("query", "");
       }
-      console.log(Val)
     }
   }
 };

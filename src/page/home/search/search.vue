@@ -26,7 +26,7 @@
                   </span>
               </div> -->
               <div v-for="(history, index) of searchHistory" :key="index" class="ix-search-history-item">
-                <div class="ix-history-content">
+                <div class="ix-history-content" @click="useHistory(history)">
                   {{ history }}
                 </div>
                 <span class="ix-history-remove" @click="removeHistory(index)">
@@ -53,11 +53,7 @@ export default {
     return {
       tabs: ["文章", "标签", "用户"],
       typeList: ["article", "label", "user"],
-      searchHistory: [
-        "zhongqsdfsdfsdfdsfdsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsfi",
-        "p",
-        "python"
-      ],
+      searchHistory: [],
       tabType: "article",
       modal2: true
     };
@@ -74,6 +70,12 @@ export default {
     }
   },
   methods: {
+    useHistory(history) {
+      let type = this.$store.getters.getType;
+      let path = `/search/${type}/${encodeURIComponent(history)}`
+      this.$store.commit('query', history)
+      this.$router.replace(path);
+    },
     switchSearchType(index) {
       let typeList = ["article", "label", "user"],
         { query } = this.$route.params;
@@ -88,6 +90,12 @@ export default {
         user
       });
     },
+    addSearchHistory(query) {
+      let historyExist = this.searchHistory.includes(query);
+      if (!historyExist) {
+        this.searchHistory.push(query);
+      }
+    },
     removeHistory(index) {
       this.searchHistory.splice(index, 1);
       setTimeout(() => {
@@ -97,34 +105,41 @@ export default {
     clearHistory() {
       let len = this.searchHistory.length;
       this.searchHistory.splice(0, len);
+      this.searchHistory();
       setTimeout(() => {
         this.$store.commit("refresh");
       }, 0);
     },
     setSearchHistory() {
       let { searchHistory } = this;
-      setStorage("searchHistory", searchHistory);
+      setStorage("searchHistory", JSON.stringify(searchHistory));
     },
     getSearchHistory() {
       let searchHistory = getStorage("searchHistory");
-      this.searchHistory = searchHistory;
+      console.log(searchHistory)
+      if (searchHistory){
+        this.searchHistory = JSON.parse(searchHistory);
+      }
     }
   },
   async mounted() {
     let { query } = this.$route.params;
     if (query) {
       this.getSearch(query);
+      this.addSearchHistory(query);
     }
+    this.getSearchHistory();
   },
   watch: {
     $route(Val, oldVal) {
       let { query } = Val.params;
       if (query) {
+        this.addSearchHistory(query);
         this.getSearch(query);
       }
     },
-    setSearchHistory(newVal, oldVal) {
-
+    searchHistory(newVal, oldVal) {
+      this.setSearchHistory();
     }
   },
   components: {
@@ -234,8 +249,11 @@ export default {
     .ix-history-remove {
       position: absolute;
       top: 0px;
-      right: 10px;
+      right: 0px;
       cursor: pointer;
+      width: 30px;
+      text-align: center;
+      display: inline-block;
     }
   }
 }
