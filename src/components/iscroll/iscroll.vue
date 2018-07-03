@@ -22,7 +22,7 @@ export default {
         scrollbars: "custom",
         taps: true
       });
-      this.$store.commit("setIscroll", iscroll);
+      this.IScroll = iscroll;
     },
     isPassive() {
       var supportsPassiveOption = false;
@@ -38,6 +38,9 @@ export default {
         );
       } catch (e) {}
       return supportsPassiveOption;
+    },
+    refresh() {
+      this.IScroll.refresh();
     }
   },
   mounted: function() {
@@ -54,7 +57,7 @@ export default {
           }
         : false
     );
-    this.$store.state.ISCROLL.iscroll.on("beforeScrollStart", function() {
+    this.IScroll.on("beforeScrollStart", function() {
       document.activeElement.blur();
     });
   }

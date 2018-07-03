@@ -1,10 +1,12 @@
 <template>
     <div class="ix-page-search">
       <div class="ix-tabs" v-if="query">
-        <div class="ix-tabs-bar">
-          <div class="ix-tabs-bar-nav-item" @click="switchSearchType(index)" v-for="(tab, index) in tabs" :key="index">{{ tab }}</div>
-          <div class="ix-tabs-bar-nav-item ix-tabs-line-container" :style="{transform: `translate(${tabIndex * 100}%)`}">
-            <span class="ix-tabs-line"></span>
+        <div class="ix-tabs-bar-container">
+          <div class="ix-tabs-bar">
+            <div class="ix-tabs-bar-nav-item" @click="switchSearchType(index)" v-for="(tab, index) in tabs" :key="index">{{ tab }}</div>
+            <div class="ix-tabs-bar-nav-item ix-tabs-line-container" :style="{transform: `translate(${tabIndex * 100}%)`}">
+              <span class="ix-tabs-line"></span>
+            </div>
           </div>
         </div>
         <div class="ix-tabs-content">
@@ -16,23 +18,25 @@
         </div>
       </div>
       <div class="ix-search-history" v-else>
-        <ISC>
+        <ISC ref="ISC">
           <div class="ix-search-history-container">
             <div class="ix-search-history-content">
-              <!-- <div class="ix-search-clear">
+              <div class="ix-search-clear" v-if="searchHistory.length > 0">
                 <div>搜索历史</div>
                   <span class="ix-history-remove" @click="clearHistory">
-                    <Icon type="ios-trash" ></Icon>
+                    <Icon type="ios-trash-outline"></Icon>
+                    <span style="font-size: 12px;margin-left: 6px;">清空</span>
                   </span>
-              </div> -->
-              <div v-for="(history, index) of searchHistory" :key="index" class="ix-search-history-item">
-                <div class="ix-history-content" @click="useHistory(history)">
-                  {{ history }}
-                </div>
-                <span class="ix-history-remove" @click="removeHistory(index)">
-                  <Icon type="close-round"></Icon>
-                </span>
               </div>
+                <div class="ix-search-history-item" v-for="(history, index) of searchHistory" :key="index">
+                  <div class="ix-history-content" @click="useHistory(history)">
+                    <span class="ix-history-icon"></span>
+                    <span class="ix-history-text">{{ history }}</span>
+                  </div>
+                  <span class="ix-history-remove" @click="removeHistory(index)">
+                    <Icon type="close-round"></Icon>
+                  </span>
+                </div>
             </div>
           </div>
           <div v-if="searchHistory.length == 0" class="ix-nofound">无搜索记录</div>
@@ -72,43 +76,37 @@ export default {
   methods: {
     useHistory(history) {
       let type = this.$store.getters.getType;
-      let path = `/search/${type}/${encodeURIComponent(history)}`
-      this.$store.commit('query', history)
+      let path = `/search/${type}/${encodeURIComponent(history)}`;
+      this.$store.commit("query", history);
       this.$router.replace(path);
     },
     switchSearchType(index) {
       let typeList = ["article", "label", "user"],
         { query } = this.$route.params;
       this.$store.commit("setType", typeList[index]);
-      this.$router.replace(`/search/${typeList[index]}/${query}`);
-    },
-    async getSearch(query) {
-      let { article, tag, user } = await search(query);
-      this.$store.commit("setQueryResult", {
-        article,
-        tag,
-        user
-      });
+      this.$router.replace(
+        `/search/${typeList[index]}/${encodeURIComponent(query)}`
+      );
     },
     addSearchHistory(query) {
-      let historyExist = this.searchHistory.includes(query);
-      if (!historyExist) {
-        this.searchHistory.push(query);
+      let history = this.searchHistory;
+      let historyExist = history.includes(query);
+      if (historyExist) {
+        let index = history.indexOf(query);
+        if (index != 0) {
+          history.splice(index, 1);
+          this.searchHistory = [query, ...history];
+        }
+      } else {
+        this.searchHistory = [query, ...history];
       }
     },
     removeHistory(index) {
       this.searchHistory.splice(index, 1);
-      setTimeout(() => {
-        this.$store.commit("refresh");
-      }, 0);
     },
     clearHistory() {
       let len = this.searchHistory.length;
       this.searchHistory.splice(0, len);
-      this.searchHistory();
-      setTimeout(() => {
-        this.$store.commit("refresh");
-      }, 0);
     },
     setSearchHistory() {
       let { searchHistory } = this;
@@ -116,8 +114,7 @@ export default {
     },
     getSearchHistory() {
       let searchHistory = getStorage("searchHistory");
-      console.log(searchHistory)
-      if (searchHistory){
+      if (searchHistory) {
         this.searchHistory = JSON.parse(searchHistory);
       }
     }
@@ -125,7 +122,7 @@ export default {
   async mounted() {
     let { query } = this.$route.params;
     if (query) {
-      this.getSearch(query);
+      // this.getSearch(query);
       this.addSearchHistory(query);
     }
     this.getSearchHistory();
@@ -135,11 +132,13 @@ export default {
       let { query } = Val.params;
       if (query) {
         this.addSearchHistory(query);
-        this.getSearch(query);
       }
     },
     searchHistory(newVal, oldVal) {
       this.setSearchHistory();
+      this.$nextTick(() => {
+        if (this.$refs.ISC) this.$refs.ISC.refresh();
+      });
     }
   },
   components: {
@@ -157,10 +156,12 @@ export default {
   background: #f4f5f5;
   .ix-tabs-bar {
     display: flex;
-    background: #1c2438;
+    width: 100%;
+    max-width: 800px;
     color: white;
     padding-bottom: 12px;
     position: relative;
+    flex-shrink: unset;
   }
   .ix-tabs-bar-nav-item {
     width: 100%;
@@ -226,6 +227,8 @@ export default {
       right: 10px;
       top: 0;
       cursor: pointer;
+      display: flex;
+      align-items: center;
     }
   }
   .ix-search-history-container {
@@ -245,16 +248,41 @@ export default {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
     }
     .ix-history-remove {
       position: absolute;
       top: 0px;
       right: 0px;
       cursor: pointer;
-      width: 30px;
+      width: 40px;
       text-align: center;
       display: inline-block;
     }
   }
+  .ix-tabs-bar-container {
+    display: flex;
+    background: #1c2438;
+    justify-content: center;
+  }
+}
+.ix-history-icon {
+  $icon-size: 16px;
+  display: inline-block;
+  width: $icon-size;
+  height: $icon-size;
+  background: {
+    image: url(./history.svg);
+    size: cover;
+    position: center;
+    repeat: no-repeat;
+  }
+  margin-right: 8px;
+}
+.ix-history-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1 1;
 }
 </style>

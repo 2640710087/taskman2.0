@@ -1,18 +1,18 @@
 import article from "../page/home/user";
 
-const ISCROLL = {
-    state: {
-        iscroll: null
-    },
-    mutations: {
-        setIscroll(state, iscroll) {
-            state.iscroll = iscroll;
-        },
-        refresh(state) {
-            state.iscroll.refresh();
-        }
-    }
-}
+// const ISCROLL = {
+//     state: {
+//         iscroll: null
+//     },
+//     mutations: {
+//         setIscroll(state, iscroll) {
+//             state.iscroll = iscroll;
+//         },
+//         refresh(state) {
+//             state.iscroll.refresh();
+//         }
+//     }
+// }
 
 const USER_INFO = {
     state: {
@@ -78,7 +78,7 @@ const SEARCH = {
         getArticle(state) {
             return state.queryResult.article
         },
-        getTag(state) {
+        getTag(state){
             return state.queryResult.tag
         },
         getUser(state) {
@@ -87,7 +87,7 @@ const SEARCH = {
     }
 }
 export {
-    ISCROLL,
+    // ISCROLL,
     USER_INFO,
     SEARCH
 }

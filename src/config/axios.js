@@ -25,15 +25,16 @@ http.interceptors.response.use(response => {
 export const request = async ({
     url,
     data,
-    method = 'post'
+    method = 'POST'
 }) => {
+    method = method.toLocaleUpperCase()
     try {
         if (API[url] === undefined) {
             url = `${url}.php`
         } else {
             url = API[url];
         }
-        if (method = 'get') {
+        if (method === 'GET') {
             url += `?${qs.stringify(data)}`;
         } else {
             data = qs.stringify(data);
@@ -43,7 +44,7 @@ export const request = async ({
     }
     return http({
         url: url,
-        method: method,
+        method,
         data,
     })
 }

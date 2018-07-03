@@ -19,7 +19,7 @@
                       <div class="ix-article">
                               <h2 class="ix-article-title">
                                   <div class="ix-article-title-content">
-                                      <a :href="article.location" target="_blank">
+                                      <a :href="`${host}/html/${article.location}`" target="_blank">
                                           {{ article.title }}
                                       </a>
                                   </div>
@@ -34,7 +34,9 @@
                               <div class="ix-article-lable">
                                   <ul class="ix-article-lable-list" v-if="labelStringToArray(article.tag)">
                                       <li class="ix-article-lable-item" v-for="(lable, index) in labelStringToArray(article.tag)" :key="index">
-                                        <a :href="`/#/lable/${lable}`" >{{ lable }}</a>
+                                        <router-link :to="`/lable/${encodeURIComponent(lable)}`" >
+                                          {{ lable }}
+                                        </router-link>
                                       </li>
                                   </ul>
                               </div>

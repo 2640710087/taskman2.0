@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import {
-    ISCROLL,
+    // ISCROLL,
     USER_INFO,
     SEARCH
 } from "./modules";
@@ -9,7 +9,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
-        ISCROLL,
+        // ISCROLL,
         USER_INFO,
         SEARCH
     }

@@ -2,7 +2,7 @@
   <div class="ix-search-label">
     <ISC>
       <div class="ix-search-label-container">
-        <div v-if="label.length > 0" class="ix-label-container">
+        <div v-if="label.length" class="ix-label-container">
           <ul class="ix-article-lable-list">
               <li class="ix-article-lable-item" v-for="(tag, index) in label" :key="index">
                 <a :href="`/#/lable/${tag}`" >{{ tag }}</a>
@@ -26,14 +26,14 @@ export default {
   computed: {
     label() {
       let tagString = this.$store.getters.getTag;
-      if (Array.isArray(tagString)) return [];
+      if (Array.isArray(tagString)) return tagString;
       else {
         return tagString.split(",");
       }
     }
   },
   mounted() {
-    if (this.label.length === 0) {
+    if (!this.label.length) {
       console.log(this.userList)
       setTimeout(() => {
         this.loading = "无结果";

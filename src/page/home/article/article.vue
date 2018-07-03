@@ -1,7 +1,7 @@
 <template>
   <div class="ix-article">
     <div class="ix-article-container">
-      <ISC>
+      <ISC ref="ISC">
         <div class="ix-article-viewport-container">
           <div class="ix-article-viewport">
             <Cardlist :articlelist="article"></Cardlist>
@@ -44,23 +44,27 @@ export default {
         }
       })
       .then(res => {
-        if (res)
-          setTimeout(() => {
-            this.$store.commit("refresh");
-          }, 0);
-        else console.log("get article failed!");
+        if (!res) console.log("get article failed!");
       })
       .catch(e => {
         this.loading = false;
         setTimeout(() => {
           this.tip = true;
-          setTimeout(() => {
-            this.tip = false;
-          }, 2000);
         }, 500);
-
         console.log(`Error message: ${e.message}`);
       });
+  },
+  watch: {
+    article() {
+      this.$nextTick(() => {
+        if (this.$refs.ISC) this.$refs.ISC.refresh();
+      });
+    },
+    $route() {
+      this.$nextTick(() => {
+        if (this.$refs.ISC) this.$refs.ISC.refresh();
+      });
+    }
   },
   components: {
     Cardlist,

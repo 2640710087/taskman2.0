@@ -164,6 +164,7 @@ export default {
   display: flex;
   align-content: center;
   justify-content: center;
+  cursor: pointer;
 }
 .ix-back {
   line-height: 30px;

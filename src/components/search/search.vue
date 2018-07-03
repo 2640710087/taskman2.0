@@ -19,7 +19,7 @@
         @blur="$handleBlur"
         ref="search"
         >
-        <span @click="handleClear">
+        <span @click="handleClear" class="ix-search-input-clear">
           <Icon type="ios-close" size="16" class="ix-close-icon" v-show="query" ></Icon>
         </span>
       </div>
@@ -29,18 +29,23 @@
 
 <script>
 import { Icon } from "iview";
+import { search, checkToken } from "@/plugins/senddata";
 import { Sleep } from "@/plugins/account";
 export default {
   props: {},
   data() {
     return {
-      query: null,
+      query: "",
       focus: false
     };
   },
   computed: {
     search() {
       return this.isSearch(this.$route.fullPath);
+    },
+    q() {
+      let { query, type } = this.$store.getters.getSearch;
+      return { query, type };
     }
   },
   methods: {
@@ -59,15 +64,12 @@ export default {
     async $handleEnter(event) {
       this.$emit("enter", event);
       let { query } = this;
-      console.log(query);
       if (query) {
         this.$refs.search.blur();
-
         if (this.search) {
           this.$store.commit("query", this.query);
-          let { query, type } = this.$store.getters.getSearch;
-          query = encodeURIComponent(query);
-          this.$router.replace(`/search/${type}/${query}`);
+          let { query, type } = this.q;
+          this.$router.replace(`/search/${type}/${encodeURIComponent(query)}`);
         } else {
           this.$router.push(`/search`);
         }
@@ -117,11 +119,26 @@ export default {
     },
     setType(path) {
       let pathReg = /\/search(?:\/(.*)\/.*|)/i;
-      console.log(pathReg.exec(path));
-      let type = pathReg.exec(path)[1];
-      if (type) {
-        this.$store.commit("setType", type);
+      let type;
+      try {
+        type = pathReg.exec(path)[1];
+      } catch (e) {
+        type = null;
+      } finally {
+        if (type) {
+          this.$store.commit("setType", type);
+        }
       }
+    },
+    async getSearch(query) {
+      if (!query) return;
+      let { article, tag, user, code } = await search(query);
+      if (code < 300)
+        this.$store.commit("setQueryResult", {
+          article,
+          tag,
+          user
+        });
     }
   },
   components: {
@@ -134,6 +151,7 @@ export default {
       if (query) {
         this.query = query;
         this.$store.commit("query", query);
+        this.getSearch(query);
         this.setType(path);
       }
     }
@@ -142,13 +160,28 @@ export default {
     $route(Val, oldVal) {
       let { query } = Val.params;
       this.query = query;
+      this.setBlur();
       if (!this.isSearch(Val.fullPath)) {
         this.$store.commit("setType", "article");
         this.$store.commit("query", "");
-        console.log(this.$store.state.SEARCH);
       } else if (this.isSearch(Val.fullPath) && !query) {
         this.$store.commit("query", "");
+        this.$router.replace("/search");
+      } else {
+        this.$store.commit("query", query);
+        // this.getSearch(query);
+        this.setType();
       }
+    },
+    query(n, o) {
+      if (!n) {
+        this.$store.commit("query", "");
+      }
+    },
+    q(newVal, oldVal) {
+      let nq = newVal.query
+      let oq = oldVal.query
+      if (nq && nq !== oq) this.getSearch(nq);
     }
   }
 };
@@ -183,7 +216,7 @@ export default {
 
     .ix-search-input {
       height: 100%;
-      width: 100%;
+      width: calc(100% - 6px);
       background: none;
       outline: none;
       color: #fff;
@@ -218,8 +251,8 @@ export default {
   line-height: 30px;
 }
 .ix-close-icon {
-  position: absolute;
-  right: 10px;
+  // position: absolute;
+  // right: 6px;
   height: 100%;
   line-height: 26px;
 }
@@ -233,5 +266,11 @@ export default {
 .slide-fade-leave-to {
   transform: translateX(20px);
   opacity: 0;
+}
+.ix-search-input-clear {
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
 }
 </style>
