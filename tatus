@@ -1,0 +1,107 @@
+[33mcommit cdda308cff333174d46807659432f63026e15912[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: zhongqi <zq2640710087@gmail.com>
+Date:   Tue Jul 3 21:14:15 2018 +0800
+
+    change location url.
+
+[33mcommit ca0feea65b9fca2d5c31c6af7f6165330c336cb5[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: zhongqi <zq2640710087@gmail.com>
+Date:   Fri Jun 8 18:52:29 2018 +0800
+
+    complate search history
+
+[33mcommit a92fbf44b7362771da8cee91a4389fc0472c11ba[m
+Author: zhongqi <zq2640710087@gmail.com>
+Date:   Fri Jun 8 17:38:32 2018 +0800
+
+    complate search
+
+[33mcommit b33e8caf0ebd405ac66f23f12e76154dc9af9b06[m
+Author: zhongqi <zq2640710087@gmail.com>
+Date:   Tue May 29 13:19:44 2018 +0800
+
+    i fix search input focus problem
+
+[33mcommit 56617598a7718fb20b8cdd8c1290f4790200daaa[m
+Author: zhongqi <zq2640710087@gmail.com>
+Date:   Mon May 28 22:06:06 2018 +0800
+
+    fix reset_password page
+
+[33mcommit 508072771573bad6b1f914bbcb4fc2d885775de7[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Sat May 19 21:17:31 2018 +0800
+
+    add upload test
+
+[33mcommit e235363051417dee8439dcdb5f52ae83c02ba0cd[m[33m ([m[1;31mtm/master[m[33m)[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Mon May 14 13:34:51 2018 +0800
+
+    i don't know modified
+
+[33mcommit 02613558e6df56add3a2c604d41b1055f2f185bb[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Mon May 7 17:43:34 2018 +0800
+
+    using vuex
+
+[33mcommit 6c6b2d2a5fd36a784aa05ae2540d74a68359a13f[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Thu May 3 17:29:15 2018 +0800
+
+    ok
+
+[33mcommit ba7a2b2a9f23a72d1d209f35cf2ab351a0ab6622[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Mon Apr 30 22:55:26 2018 +0800
+
+    fix one bug
+
+[33mcommit e5ee37a4e56ccc45c793ff73eacfdef9a4988d3d[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Mon Apr 30 22:28:23 2018 +0800
+
+    '解决了iscroll的失去焦点问题'
+
+[33mcommit c540ed848563002beaf9a6d23e48406e47183786[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Sat Apr 28 00:47:07 2018 +0800
+
+    添加了文章列表卡
+
+[33mcommit 203fae49f8e48c15e2f2f6272afca825ca89d134[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Thu Apr 26 11:27:55 2018 +0800
+
+    添加了头部
+
+[33mcommit 9b90b984598d780b3abc7b4aba52b32fa085d1a9[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Sun Apr 15 11:51:34 2018 +0800
+
+    delete task.vue
+
+[33mcommit 3e80e30641f5d3c9b4006b374187e8e066e967c0[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Fri Apr 13 10:31:32 2018 +0800
+
+    add one line code
+
+[33mcommit 58adb7c6d9ca54d7f5732d93e00d02bb062a3ff4[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Sun Mar 4 21:17:54 2018 +0800
+
+    i don't know
+
+[33mcommit 8c097c0fc8ab9e12fd4c3b8f416d5cbe49068a2b[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Sun Feb 25 16:58:17 2018 +0800
+
+    完成了登录，注册，重置密码
+
+[33mcommit 7c0bdff53cb682474b4458aa3f8ffc1961abfde3[m
+Author: zhongqi <zq2640710087@qq.com>
+Date:   Sat Feb 24 00:41:57 2018 +0800
+
+    init
